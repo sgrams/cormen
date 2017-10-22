@@ -17,6 +17,8 @@
  *
  * Heapsort definition has to differ from the pseudocode
  * I didn't want to use the global variable and I wanted to pass the heapify type, too.
+ * Tested under kernel 4.13.5-1-ARCH and gcc 7.2.0 
+ * 
  *
  * 2. LICENSE
  *
