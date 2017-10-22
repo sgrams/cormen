@@ -45,9 +45,13 @@ int main (int argc, char **argv) {
   while ((c=getopt(argc, argv, "lio")) != -1)
     switch (c) {
       case 'i': // allocs memory and sets input filename (or path)
-        if (!isatty(fileno(stdin)))
-        {
+        if (!isatty(fileno(stdin))) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m input cannot be a file and a stream at once\n"
+              "sorting terminated\n", argv[0]);
+          return EXIT_FAILURE;
+        }
+        if (argv[optind] == NULL) {
+          fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file not specified\n"
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
@@ -56,9 +60,14 @@ int main (int argc, char **argv) {
         inputFileFlag=1;
         break;
       case 'o': // allocs memory and sets output filename (or path)
-        if (!isatty(fileno(stdout)))
-        {
+        if (!isatty(fileno(stdout))) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m output cannot be a file and a stream at once\n"
+              "sorting terminated\n", argv[0]);
+          return EXIT_FAILURE;
+        }
+        
+        if (argv[optind] == NULL) {
+          fprintf(stderr, "%s: \033[31mfatal error:\033[0m output file not specified\n"
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
@@ -88,39 +97,41 @@ int main (int argc, char **argv) {
       }
       return EXIT_FAILURE;
     }
-    // check if there is a pipe or a terminal on the stdout
-    if (!isatty(fileno(stdout))) {
-      outputFile = stdout;
-    }
-    else {
-      // checking if the file names are not the same
-      if (!strcmp(inputFileName, outputFileName)) {
-        fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\n"
-            "sorting terminated\n", argv[0], inputFileName);
-        free(inputFileName);
-        free(outputFileName);
-        return EXIT_FAILURE;
-      }
-      // if the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
-      if (!outputFileFlag) {
-        outputFileName = malloc((strlen(defaultOutputFileName)+1)*sizeof(char));
-        strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
-        outputFileFlag=1;
-      }
-      // opening output file
-      outputFile = fopen((const char *) outputFileName, "w");
-    }
     // opening the input file
     inputFile = fopen((const char *) inputFileName, "r");
-    if (!inputFile) {
-      fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to open file %s\n", argv[0], inputFileName);
-      free(inputFileName);
-      if (isatty(fileno(stdout)))
-        free(outputFileName);
-      return EXIT_FAILURE;
-    }
+  }
+  if (!inputFile) {
+    fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to open file %s\n"
+            "sorting terminated\n", argv[0], inputFileName);
+    free(inputFileName);
+    if (isatty(fileno(stdout)))
+      free(outputFileName);
+    return EXIT_FAILURE;
   }
 
+  // check if there is a pipe or a terminal on the stdout
+  if (!isatty(fileno(stdout))) {
+      outputFile = stdout;
+  }
+  else {
+    // checking if the file names are not the same
+    if (outputFileFlag && !strcmp(inputFileName, outputFileName)) {
+      fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\n"
+          "sorting terminated\n", argv[0], inputFileName);
+      free(inputFileName);
+      free(outputFileName);
+      return EXIT_FAILURE;
+    }
+    // if the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
+    if (!outputFileFlag) {
+      outputFileName = malloc((strlen(defaultOutputFileName)+1)*sizeof(char));
+      strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
+      outputFileFlag=1;
+    }
+    // opening output file
+    outputFile = fopen((const char *) outputFileName, "w");
+ }
+ 
   // if the outputFile is not writable, return failure...
   if (!outputFile) {
     fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to write to file %s\n", argv[0], outputFileName);
@@ -142,7 +153,7 @@ int main (int argc, char **argv) {
     fprintf(outputFile, "%i\n", *(numbersTable+i));
 
   // closing opened files if they are not streams
-  if (!isatty(fileno(stdin)))
+  if (isatty(fileno(stdin)))
     fclose(inputFile);
   if (isatty(fileno(stdout)))
     fclose(outputFile);
@@ -150,10 +161,9 @@ int main (int argc, char **argv) {
   // freeing memory
   if (isatty(fileno(stdin)))
     free(inputFileName);
-  if (inputFileFlag)
-    free(inputFileName);
-  if (outputFileFlag)
+  if (isatty(fileno(stdout)))
     free(outputFileName);
+  
   free(numbersTable);
 
   return 0;
