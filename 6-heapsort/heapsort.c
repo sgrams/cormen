@@ -7,18 +7,18 @@
  * Syntax `./heapsort [-l (for iterative heapify function!)] -i inputFile -o outputFile`
  *
  * Input file is required. If output file is not set, defaults will be forced (out.txt).
- * There is also possibility to use the program with streams,
- * eg. `cat test1.txt | ./heapsort` will save out.txt file
- * `cat test1.txt | ./heapsort > out_test.txt` will save out_test.txt file
- * it is also possible to combine streams and output file as a parameter and vice versa.
+ * There is possibility to use the program with streams,
+ * eg. `cat test1.txt | ./heapsort` will save out.txt file,
+ * `cat test1.txt | ./heapsort > out_test.txt` will save out_test.txt file.
+ * It is also possible to combine streams and output file as a parameter and vice versa.
  *
- * checked for memleaks with valgrind
+ * Checked for memory leaks with
  * `valgrind --leak-check=full <various combinations of commands>`
  *
  * Heapsort definition has to differ from the pseudocode
+ * I had to change Heapsort function definition as well as other because
  * I didn't want to use the global variable and I wanted to pass the heapify type, too.
  * Tested under kernel 4.13.5-1-ARCH and gcc 7.2.0 
- * 
  *
  * 2. LICENSE
  *
