@@ -41,10 +41,10 @@ int main (int argc, char **argv) {
   int  *numbersTable=NULL;
   int  i, type=0, inputFileFlag=0, outputFileFlag=0, inputFileLineCounter=0;
   
-  //getopt setting i stands for input, o stands for output
+  // getopt setting i stands for input, o stands for output
   while ((c=getopt(argc, argv, "lio")) != -1)
     switch (c) {
-      case 'i': //allocs memory and sets input filename (or path)
+      case 'i': // allocs memory and sets input filename (or path)
         if (!isatty(fileno(stdin)))
         {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m input cannot be a file and a stream at once\n
@@ -55,7 +55,7 @@ int main (int argc, char **argv) {
         strncpy(inputFileName, argv[optind], strlen(argv[optind])+1);
         inputFileFlag=1;
         break;
-      case 'o': //allocs memory and sets output filename (or path)
+      case 'o': // allocs memory and sets output filename (or path)
         if (!isatty(fileno(stdout)))
         {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m output cannot be a file and a stream at once\n
@@ -66,7 +66,7 @@ int main (int argc, char **argv) {
         strncpy(outputFileName, argv[optind], strlen(argv[optind])+1);
         outputFileFlag=1;
         break;
-      case 'l': //l stands for loop and runs heapify iteratively
+      case 'l': // l stands for loop and runs heapify iteratively
         type=1;
         break;
       case '?':
@@ -107,7 +107,7 @@ int main (int argc, char **argv) {
         strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
         outputFileFlag=1;
       }
-      //opening output file
+      // opening output file
       outputFile = fopen((const char *) outputFileName, "w");
     }
     // opening the input file
@@ -127,7 +127,7 @@ int main (int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  // counting lines dynamically (and numbers in list, assuming one line = one number) before declaring required memory
+  // reading input and counting numbers...
   for (inputFileLineCounter=0, c=0; c != EOF; inputFileLineCounter++) 
   {
     numbersTable=realloc(numbersTable, (inputFileLineCounter+1)*sizeof(int));
@@ -141,13 +141,13 @@ int main (int argc, char **argv) {
   for (i=0; i<inputFileLineCounter; i++)
     fprintf(outputFile, "%i\n", *(numbersTable+i));
 
-  //closing opened files if they are not streams
+  // closing opened files if they are not streams
   if (!isatty(fileno(stdin)))
     fclose(inputFile);
   if (isatty(fileno(stdout)))
     fclose(outputFile);
 
-  //freeing memory
+  // freeing memory
   if (isatty(fileno(stdin)))
     free(inputFileName);
   if (inputFileFlag)
@@ -222,9 +222,10 @@ void heapifyIt (int *A, int i, int heapsize) {
   }
 }
 
+// exchange function uses the XOR style swap
 void exchange (int *A, int a, int b)
 {
-  if (*(A+a) != *(A+b)) {
+  if (*(A+a) != *(A+b)) { // if *(A+a) == *(A+b) operation would zero both of variables
     *(A+a) ^= *(A+b);
     *(A+b) ^= *(A+a);
     *(A+a) ^= *(A+b);
