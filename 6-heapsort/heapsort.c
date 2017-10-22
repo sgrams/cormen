@@ -175,7 +175,7 @@ void heapsort (int *A, int heapSize, int type) {
     for (i=heapSize; i>0; i--)
     {
       exchange(A, 0, i);
-      heapsize--;
+      heapSize--;
       if (!type)
         heapify(A, 0, heapSize);
       else
