@@ -12,6 +12,9 @@
  * checked for memleaks with valgrind
  * `valgrind --leak-check=full <various combinations of commands>`
  *
+ * Heapsort definition has to differ from the pseudocode
+ * I didn't want to use the global variable and I wanted to pass the heapify type, too.
+ *
 */
 
 #include <stdio.h>
@@ -44,7 +47,8 @@ int main (int argc, char **argv) {
       case 'i': //allocs memory and sets input filename (or path)
         if (!isatty(fileno(stdin)))
         {
-          fprintf(stderr, "%s: \033[31mfatal error:\033[0m input cannot be a file and a stream at once\nsorting terminated\n", argv[0]);
+          fprintf(stderr, "%s: \033[31mfatal error:\033[0m input cannot be a file and a stream at once\n
+              sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
         inputFileName = malloc((strlen(argv[optind])+1)*sizeof(char));
@@ -54,7 +58,8 @@ int main (int argc, char **argv) {
       case 'o': //allocs memory and sets output filename (or path)
         if (!isatty(fileno(stdout)))
         {
-          fprintf(stderr, "%s: \033[31mfatal error:\033[0m output cannot be a file and a stream at once\nsorting terminated\n", argv[0]);
+          fprintf(stderr, "%s: \033[31mfatal error:\033[0m output cannot be a file and a stream at once\n
+              sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
         outputFileName = malloc((strlen(argv[optind])+1)*sizeof(char));
@@ -90,7 +95,8 @@ int main (int argc, char **argv) {
     else {
       // checking if the file names are not the same
       if (!strcmp(inputFileName, outputFileName)) {
-        fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\nsorting terminated\n", argv[0], inputFileName);
+        fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\n
+            sorting terminated\n", argv[0], inputFileName);
         free(inputFileName);
         free(outputFileName);
         return EXIT_FAILURE;
@@ -135,7 +141,7 @@ int main (int argc, char **argv) {
   for (i=0; i<inputFileLineCounter; i++)
     fprintf(outputFile, "%i\n", *(numbersTable+i));
 
-  //closing opened files
+  //closing opened files if they are not streams
   if (!isatty(fileno(stdin)))
     fclose(inputFile);
   if (isatty(fileno(stdout)))
@@ -148,7 +154,6 @@ int main (int argc, char **argv) {
     free(inputFileName);
   if (outputFileFlag)
     free(outputFileName);
-
   free(numbersTable);
 
   return 0;
