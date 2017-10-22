@@ -162,8 +162,7 @@ int main (int argc, char **argv) {
   if (isatty(fileno(stdin)))
     free(inputFileName);
   if (isatty(fileno(stdout)))
-    free(outputFileName);
-  
+    free(outputFileName); 
   free(numbersTable);
 
   return 0;
