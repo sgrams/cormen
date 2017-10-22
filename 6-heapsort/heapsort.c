@@ -17,10 +17,11 @@ int main (int argc, char **argv) {
   char *inputFileName;
   char *outputFileName;
 
-  int c, inputFileFlag = -1, outputFileFlag = -1;
+  int  *numbersTable;
+  int  i, c, inputFileFlag = -1, outputFileFlag = -1, inputFileLineCounter = 0;
 
   //getopt setting i stands for input, o stands for output
-  while ((c = getopt(argc, argv, "io")) != -1)
+  while ((c=getopt(argc, argv, "io")) != -1)
     switch (c) {
       case 'i': //allocs memory and sets input filename (or path)
         inputFileName = malloc((strlen(argv[optind])+1)*sizeof(char));
@@ -51,18 +52,56 @@ int main (int argc, char **argv) {
     strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName));
   }
 
-  // opening files to read and write
+  // opening input file
   inputFile  = fopen((const char *) inputFileName, "r");
+
+  // if the inputFile does not exist nor is readable, return failure...
+  if (!inputFile) {
+    fprintf(stderr, "Unable to open file %s\n", inputFileName);
+    return EXIT_FAILURE;
+  }
+
+  //opening output file
   outputFile = fopen((const char *) outputFileName, "w");
 
-  
+  // if the outputFile is not writable, return failure...
+  if(!outputFile) {
+    fprintf(stderr, "Unable to write to file %s\n", outputFileName);
+    return EXIT_FAILURE;
+  }
 
+  // counting lines (and numbers in list) before declaring required memory
+  for (c=getc(inputFile); c!=EOF; c=getc(inputFile))
+    if (c == '\n')
+      inputFileLineCounter++;
+  rewind(inputFile); //back to the beginning of the file after counting the lines
 
+  // allocs memory for given array of numbers
+  numbersTable = malloc(inputFileLineCounter * sizeof(int));
+
+  // read numbers to the array
+  for (i=0; i<inputFileLineCounter; i++)
+  {
+    fscanf(inputFile, "%i", (numbersTable+i));
+  }
+
+  // run heapsort on the array
+  heapsort(numbersTable, inputFileLineCounter-1);
+
+  for (i=0; i<inputFileLineCounter; i++)
+  {
+    fprintf(outputFile, "%i\n", *(numbersTable+i));
+  }
+
+  //closing opened files
   fclose(inputFile);
   fclose(outputFile);
 
+  //freeing memory
   free(inputFileName);
   free(outputFileName);
+  free(numbersTable);
+
   return 0;
 }
 
