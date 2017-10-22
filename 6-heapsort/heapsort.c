@@ -6,8 +6,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 
 #define defaultOutputFileName "out.txt"
 
@@ -23,22 +23,28 @@ int main (int argc, char **argv) {
 
   char *inputFileName;
   char *outputFileName;
+  char c;
 
-  int  *numbersTable;
-  int  i, c, type=0, inputFileFlag=-1, outputFileFlag=-1, inputFileLineCounter=0;
-
+  int  *numbersTable=NULL;
+  int  i, type=0, inputFileFlag=0, outputFileFlag=0, inputFileLineCounter=0;
+  
   //getopt setting i stands for input, o stands for output
   while ((c=getopt(argc, argv, "lio")) != -1)
     switch (c) {
       case 'i': //allocs memory and sets input filename (or path)
+        if (!isatty(fileno(stdin)))
+        {
+          fprintf(stderr, "%s: \033[31mfatal error:\033[0m input cannot be a file and a stream at once\nsorting terminated\n", argv[0]);
+          return EXIT_FAILURE;
+        }
         inputFileName = malloc((strlen(argv[optind])+1)*sizeof(char));
-        strncpy(inputFileName, argv[optind], strlen(argv[optind]));
-        inputFileFlag=0;
+        strncpy(inputFileName, argv[optind], strlen(argv[optind])+1);
+        inputFileFlag=1;
         break;
       case 'o': //allocs memory and sets output filename (or path)
         outputFileName = malloc((strlen(argv[optind])+1)*sizeof(char));
-        strncpy(outputFileName, argv[optind], strlen(argv[optind]));
-        outputFileFlag=0;
+        strncpy(outputFileName, argv[optind], strlen(argv[optind])+1);
+        outputFileFlag=1;
         break;
       case 'l': //l stands for loop and runs heapify iteratively
         type=1;
@@ -50,52 +56,58 @@ int main (int argc, char **argv) {
         break;
     }
 
-  // inputFileFlag has to be set, to run the program
-  if (inputFileFlag) {
-    fprintf(stderr, "Syntax: heapsort [-l (for iterative version)] -i inputFile -o outputFile\n");
-    return EXIT_FAILURE;
+  // there has to be a pipe/file on stdin, or inputFileFlag has to be set, to run the program
+  if (!isatty(fileno(stdin))) {
+    inputFile = stdin;
+  }
+  else {
+    if (!inputFileFlag) {
+      fprintf(stderr, "Syntax: heapsort [-l (for iterative version)] -i inputFile -o outputFile\n");
+      if (outputFileFlag) {
+        free(outputFileName);
+      }
+      return EXIT_FAILURE;
+    }
+    // checking if the file names are not the same
+    if (!strcmp(inputFileName, outputFileName)) {
+      fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\nsorting terminated\n", argv[0], inputFileName);
+      free(inputFileName);
+      free(outputFileName);
+      return EXIT_FAILURE;
+    }
+    // opening the input file
+    inputFile = fopen((const char *) inputFileName, "r");
+    if (!inputFile) {
+      fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to open file %s\n", argv[0], inputFileName);
+      free(inputFileName);
+      free(outputFileName);
+      return EXIT_FAILURE;
+    }
   }
 
   // if the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
-  if (outputFileFlag) {
+  if (!outputFileFlag) {
     outputFileName = malloc((strlen(defaultOutputFileName)+1)*sizeof(char));
-    strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName));
-  }
-
-  if (!strcmp(inputFileName, outputFileName)) {
-    fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\nsorting terminated\n", argv[0], inputFileName);
-    return EXIT_FAILURE;
-  }
-  // opening input file
-  inputFile  = fopen((const char *) inputFileName, "r");
-
-  // if the inputFile does not exist nor is readable, return failure...
-  if (!inputFile) {
-    fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to open file %s\n", argv[0], inputFileName);
-    return EXIT_FAILURE;
+    strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
+    outputFileFlag=1;
   }
 
   //opening output file
   outputFile = fopen((const char *) outputFileName, "w");
 
   // if the outputFile is not writable, return failure...
-  if(!outputFile) {
+  if (!outputFile) {
     fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to write to file %s\n", argv[0], outputFileName);
     return EXIT_FAILURE;
   }
 
-  // counting lines (and numbers in list, assuming one line = one number) before declaring required memory
-  for (c=getc(inputFile); c!=EOF; c=getc(inputFile))
-    if (c == '\n')
-      inputFileLineCounter++;
-  rewind(inputFile); //back to the beginning of the file after counting the lines
-
-  // allocs memory for given array of numbers
-  numbersTable = malloc(inputFileLineCounter * sizeof(int));
-
-  // read numbers to the array (I really assume we're having a number in every line...)
-  for (i=0; i<inputFileLineCounter; i++)
-    fscanf(inputFile, "%i", (numbersTable+i));
+  // counting lines dynamically (and numbers in list, assuming one line = one number) before declaring required memory
+  for (inputFileLineCounter=0, c=0; c != EOF; inputFileLineCounter++) 
+  {
+    numbersTable=realloc(numbersTable, (inputFileLineCounter+1)*sizeof(int));
+    c = fscanf(inputFile, "%i", (numbersTable+inputFileLineCounter));
+  }
+  inputFileLineCounter--; //for goes one line to far to check if EOF...
 
   // run heapsort on the array
   heapsort(numbersTable, inputFileLineCounter-1, type);
@@ -104,12 +116,17 @@ int main (int argc, char **argv) {
     fprintf(outputFile, "%i\n", *(numbersTable+i));
 
   //closing opened files
-  fclose(inputFile);
+  if (!isatty(fileno(stdin)))
+    fclose(inputFile);
   fclose(outputFile);
 
   //freeing memory
-  free(inputFileName);
-  free(outputFileName);
+  if (isatty(fileno(stdin)))
+    free(inputFileName);
+  if (inputFileFlag)
+    free(inputFileName);
+  if (outputFileFlag)
+    free(outputFileName);
   free(numbersTable);
 
   return 0;
