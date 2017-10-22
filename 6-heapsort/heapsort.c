@@ -24,10 +24,10 @@
 
 #define defaultOutputFileName "out.txt"
 
-void heapsort  (int *A, int heapsize, int type);
-void buildHeap (int *A, int heapsize);
-void heapify   (int *A, int i, int heapsize);
-void heapifyIt (int *A, int i, int heapsize);
+void heapsort  (int *A, int heapSize, int type);
+void buildHeap (int *A, int heapSize);
+void heapify   (int *A, int i, int heapSize);
+void heapifyIt (int *A, int i, int heapSize);
 void exchange  (int *A, int a, int b);
 
 int main (int argc, char **argv) {
@@ -169,63 +169,63 @@ int main (int argc, char **argv) {
   return 0;
 }
 
-void heapsort (int *A, int heapsize, int type) {
+void heapsort (int *A, int heapSize, int type) {
     int i;
-    buildHeap(A, heapsize);
-    for (i=heapsize; i>0; i--)
+    buildHeap(A, heapSize);
+    for (i=heapSize; i>0; i--)
     {
       exchange(A, 0, i);
       heapsize--;
       if (!type)
-        heapify(A, 0, heapsize);
+        heapify(A, 0, heapSize);
       else
-        heapifyIt(A, 0, heapsize);
+        heapifyIt(A, 0, heapSize);
     }
 }
 
-void buildHeap (int *A, int heapsize) {
-    for (int i=heapsize/2; i>=0; i--)
-      heapify(A, i, heapsize);
+void buildHeap (int *A, int heapSize) {
+    for (int i=heapSize/2; i>=0; i--)
+      heapify(A, i, heapSize);
 }
 
-void heapify (int *A, int i, int heapsize) {
+void heapify (int *A, int i, int heapSize) {
   int largest;
 
   int le = (2*i);
   int ri = (2*i)+1;
 
-  if (le <= heapsize && A[le] > A[i])
+  if (le <= heapSize && A[le] > A[i])
     largest = le;
   else
     largest = i;
 
-  if (ri <= heapsize && A[ri] > A[largest])
+  if (ri <= heapSize && A[ri] > A[largest])
     largest = ri;
 
   if (largest != i) {
     exchange(A, i, largest);
-    heapify(A, largest, heapsize);
+    heapify(A, largest, heapSize);
   }
 }
 
-void heapifyIt (int *A, int i, int heapsize) {
+void heapifyIt (int *A, int i, int heapSize) {
   int largest, le, ri;
-  while (i<=heapsize)
+  while (i<=heapSize)
   {
     le = (2*i);
     ri = (2*i)+1;
   
-    if (le <= heapsize && A[le] > A[i])
+    if (le <= heapSize && A[le] > A[i])
       largest = le;
     else
       largest = i;
   
-    if (ri <= heapsize && A[ri] > A[largest])
+    if (ri <= heapSize && A[ri] > A[largest])
       largest = ri;
   
     if (largest != i) {
       exchange(A, i, largest);
-      heapify(A, largest, heapsize);
+      heapify(A, largest, heapSize);
     }
     else
       break;
