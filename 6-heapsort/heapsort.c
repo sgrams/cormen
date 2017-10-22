@@ -1,7 +1,17 @@
-/* AL2.4, Stanisław Juliusz Grams (251000 UG MFI), 20171022
+/*
+ * AL2.4, Stanisław Juliusz Grams (251000 UG MFI), 20171022
  * Compile with command `gcc -o heapsort heapsort.c -Wall -pedantic -std=gnu99`
  * Syntax `./heapsort [-l (for iterative heapify function!)] -i inputFile -o outputFile`
+ *
  * Input file is required. If output file is not set, defaults will be forced (out.txt).
+ * There is also possibility to use the program with streams,
+ * eg. `cat list1.txt | ./heapsort` will save out.txt file
+ * `cat list1.txt | ./heapsort > out_test.txt` will save out_test.txt file
+ * it is also possible to combine streams and output file as a parameter and vice versa.
+ *
+ * checked for memleaks with valgrind
+ * `valgrind --leak-check=full <various combinations of commands>`
+ *
 */
 
 #include <stdio.h>
@@ -42,6 +52,11 @@ int main (int argc, char **argv) {
         inputFileFlag=1;
         break;
       case 'o': //allocs memory and sets output filename (or path)
+        if (!isatty(fileno(stdout)))
+        {
+          fprintf(stderr, "%s: \033[31mfatal error:\033[0m output cannot be a file and a stream at once\nsorting terminated\n", argv[0]);
+          return EXIT_FAILURE;
+        }
         outputFileName = malloc((strlen(argv[optind])+1)*sizeof(char));
         strncpy(outputFileName, argv[optind], strlen(argv[optind])+1);
         outputFileFlag=1;
@@ -68,32 +83,37 @@ int main (int argc, char **argv) {
       }
       return EXIT_FAILURE;
     }
-    // checking if the file names are not the same
-    if (!strcmp(inputFileName, outputFileName)) {
-      fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\nsorting terminated\n", argv[0], inputFileName);
-      free(inputFileName);
-      free(outputFileName);
-      return EXIT_FAILURE;
+    // check if there is a pipe or a terminal on the stdout
+    if (!isatty(fileno(stdout))) {
+      outputFile = stdout;
+    }
+    else {
+      // checking if the file names are not the same
+      if (!strcmp(inputFileName, outputFileName)) {
+        fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\nsorting terminated\n", argv[0], inputFileName);
+        free(inputFileName);
+        free(outputFileName);
+        return EXIT_FAILURE;
+      }
+      // if the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
+      if (!outputFileFlag) {
+        outputFileName = malloc((strlen(defaultOutputFileName)+1)*sizeof(char));
+        strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
+        outputFileFlag=1;
+      }
+      //opening output file
+      outputFile = fopen((const char *) outputFileName, "w");
     }
     // opening the input file
     inputFile = fopen((const char *) inputFileName, "r");
     if (!inputFile) {
       fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to open file %s\n", argv[0], inputFileName);
       free(inputFileName);
-      free(outputFileName);
+      if (isatty(fileno(stdout)))
+        free(outputFileName);
       return EXIT_FAILURE;
     }
   }
-
-  // if the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
-  if (!outputFileFlag) {
-    outputFileName = malloc((strlen(defaultOutputFileName)+1)*sizeof(char));
-    strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
-    outputFileFlag=1;
-  }
-
-  //opening output file
-  outputFile = fopen((const char *) outputFileName, "w");
 
   // if the outputFile is not writable, return failure...
   if (!outputFile) {
@@ -118,7 +138,8 @@ int main (int argc, char **argv) {
   //closing opened files
   if (!isatty(fileno(stdin)))
     fclose(inputFile);
-  fclose(outputFile);
+  if (isatty(fileno(stdout)))
+    fclose(outputFile);
 
   //freeing memory
   if (isatty(fileno(stdin)))
@@ -127,6 +148,7 @@ int main (int argc, char **argv) {
     free(inputFileName);
   if (outputFileFlag)
     free(outputFileName);
+
   free(numbersTable);
 
   return 0;
