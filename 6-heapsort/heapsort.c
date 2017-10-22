@@ -13,7 +13,7 @@
  * It is also possible to combine streams and output file as a parameter and vice versa.
  *
  * Checked for memory leaks with
- * `valgrind --leak-check=full <various combinations of commands>`
+ * `valgrind --leak-check=full -v <various combinations of commands>`
  *
  * Heapsort definition has to differ from the pseudocode
  * I had to change Heapsort function definition as well as other because
