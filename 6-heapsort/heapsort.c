@@ -164,13 +164,12 @@ int main (int argc, char **argv) {
   }
 
   // reading input and counting numbers...
-  for (numbersTable=malloc(sizeof(int)), inputFileLineCounter=0, c=0; c != EOF;) 
+  for (inputFileLineCounter=0, c=0; c != EOF; inputFileLineCounter++) 
   {
-    c = fscanf(inputFile, "%i", (numbersTable+inputFileLineCounter));
-    if (c != EOF)
-      numbersTable=realloc(numbersTable, ((++inputFileLineCounter)+1)*sizeof(int));
+    numbersTable=realloc(numbersTable, (inputFileLineCounter+1)*sizeof(int));
+    c=fscanf(inputFile, "%i", (numbersTable+inputFileLineCounter));
   }
-  inputFileLineCounter--; // for loop goes one line too far to check if EOF...
+  inputFileLineCounter--; // for loop goes one line too far to check if EOF
 
   // run heapsort on the array
   heapsort(numbersTable, inputFileLineCounter-1, type);
