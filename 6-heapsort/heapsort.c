@@ -61,15 +61,19 @@ int main (int argc, char **argv) {
   int  *numbersTable=NULL;
   int  i, type=0, inputFileFlag=0, outputFileFlag=0, inputFileLineCounter=0;
   
-  // getopt setting i stands for input, o stands for output
+  // getopt setting;
+  // l stands for loop (iterative version of heapify)
+  // i stands for input, o stands for output
   while ((c=getopt(argc, argv, "lio")) != -1)
     switch (c) {
       case 'i': // allocs memory and sets input filename (or path)
+        // check if not file and stream at once
         if (!isatty(fileno(stdin))) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m input cannot be a file and a stream at once\n"
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
+        // check if input file is specified
         if (argv[optind] == NULL) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file not specified\n"
               "sorting terminated\n", argv[0]);
@@ -80,12 +84,13 @@ int main (int argc, char **argv) {
         inputFileFlag=1;
         break;
       case 'o': // allocs memory and sets output filename (or path)
+        // check if not file and stream at once
         if (!isatty(fileno(stdout))) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m output cannot be a file and a stream at once\n"
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
-        
+        // check if output file is specified
         if (argv[optind] == NULL) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m output file not specified\n"
               "sorting terminated\n", argv[0]);
@@ -95,7 +100,7 @@ int main (int argc, char **argv) {
         strncpy(outputFileName, argv[optind], strlen(argv[optind])+1);
         outputFileFlag=1;
         break;
-      case 'l': // l stands for loop and runs heapify iteratively
+      case 'l':
         type=1;
         break;
       case '?':
