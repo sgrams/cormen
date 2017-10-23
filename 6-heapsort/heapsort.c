@@ -237,6 +237,7 @@ void heapify (int *A, int i, int heapSize) {
 // iterative heapify version
 void heapifyIt (int *A, int i, int heapSize) {
   int largest, le, ri;
+
   while (i<=heapSize)
   {
     le = (2*i);
@@ -252,7 +253,7 @@ void heapifyIt (int *A, int i, int heapSize) {
   
     if (largest != i) {
       exchange(A, i, largest);
-      heapify(A, largest, heapSize);
+      i = largest;
     }
     else
       break;
