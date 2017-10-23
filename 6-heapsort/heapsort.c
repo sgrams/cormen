@@ -254,8 +254,7 @@ void heapifyIt (int *A, int i, int heapSize) {
 }
 
 // exchange function uses the XOR style swap
-void exchange (int *A, int a, int b)
-{
+void exchange (int *A, int a, int b) {
   if (*(A+a) != *(A+b)) { // if *(A+a) == *(A+b), the XOR operation would zero both of variables
     *(A+a) ^= *(A+b);
     *(A+b) ^= *(A+a);
