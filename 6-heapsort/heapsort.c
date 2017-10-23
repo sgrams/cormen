@@ -164,11 +164,11 @@ int main (int argc, char **argv) {
   }
 
   // reading input and counting numbers...
-  for (numbersTable=malloc(1*sizeof(int)), inputFileLineCounter=0, c=0; c != EOF; inputFileLineCounter++) 
+  for (numbersTable=malloc(sizeof(int)), inputFileLineCounter=0, c=0; c != EOF;) 
   {
     c = fscanf(inputFile, "%i", (numbersTable+inputFileLineCounter));
     if (c != EOF)
-      numbersTable=realloc(numbersTable, (inputFileLineCounter+2)*sizeof(int));
+      numbersTable=realloc(numbersTable, ((++inputFileLineCounter)+1)*sizeof(int));
   }
   inputFileLineCounter--; // for loop goes one line too far to check if EOF...
 
