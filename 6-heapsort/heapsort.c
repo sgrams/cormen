@@ -58,7 +58,7 @@ int main (int argc, char **argv) {
   char *outputFileName;
   char c;
 
-  int  *numbersTable=NULL;
+  int  numbersTableSize, *numbersTable=NULL;
   int  i, type=0, inputFileFlag=0, outputFileFlag=0, inputFileLineCounter=0;
   
   // getopt setting;
@@ -164,13 +164,20 @@ int main (int argc, char **argv) {
   }
 
   // reading input and counting numbers...
-  for (inputFileLineCounter=0, c=0; c != EOF; inputFileLineCounter++) 
+  // reserving 128 ints at the beginning reduces usage of realloc function
+  // what makes the program faster
+  for (inputFileLineCounter=0, numbersTableSize=128, numbersTable=malloc(numbersTableSize*sizeof(int)), c=0; c != EOF; inputFileLineCounter++) 
   {
-    numbersTable=realloc(numbersTable, (inputFileLineCounter+1)*sizeof(int));
+    //check if file is bigger than size and realloc for more memory
+    if (inputFileLineCounter >= numbersTableSize) {
+      //shift to left one bit, makes more memory
+      numbersTableSize<<=1;
+      numbersTable=realloc(numbersTable, numbersTableSize*sizeof(int));
+    }
     c=fscanf(inputFile, "%i", (numbersTable+inputFileLineCounter));
   }
   // for loop goes one line too far to check if EOF
-  // dealloc and decrement
+  // decrement and dealloc unused memory
   numbersTable=realloc(numbersTable, (--inputFileLineCounter)*sizeof(int));
   
   // run heapsort on the array
