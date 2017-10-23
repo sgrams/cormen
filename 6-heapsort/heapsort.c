@@ -166,7 +166,8 @@ int main (int argc, char **argv) {
   // reading input and counting numbers...
   // reserving 128 ints at the beginning reduces usage of realloc function
   // what makes the program faster
-  for (inputFileLineCounter=0, numbersTableSize=128, numbersTable=malloc(numbersTableSize*sizeof(int)), c=0; c != EOF; inputFileLineCounter++) 
+  for (inputFileLineCounter=0, numbersTableSize=128,
+      numbersTable=malloc(numbersTableSize*sizeof(int)), c=0; c != EOF; inputFileLineCounter++) 
   {
     //check if file is bigger than size and realloc for more memory
     if (inputFileLineCounter >= numbersTableSize) {
