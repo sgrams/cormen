@@ -207,6 +207,7 @@ void buildHeap (int *A, int heapSize) {
       heapify(A, i, heapSize);
 }
 
+// recursive heapify version
 void heapify (int *A, int i, int heapSize) {
   int largest;
 
@@ -227,6 +228,7 @@ void heapify (int *A, int i, int heapSize) {
   }
 }
 
+// iterative heapify version
 void heapifyIt (int *A, int i, int heapSize) {
   int largest, le, ri;
   while (i<=heapSize)
