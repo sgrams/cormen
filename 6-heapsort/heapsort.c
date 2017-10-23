@@ -160,6 +160,14 @@ int main (int argc, char **argv) {
   // if the outputFile is not writable, return failure...
   if (!outputFile) {
     fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to write to file %s\n", argv[0], outputFileName);
+    if (inputFileFlag) {
+      free(inputFileName);
+      fclose(inputFile);
+    }
+    if (outputFileFlag) {
+      free(outputFileName);
+      fclose(outputFile);
+    }
     return EXIT_FAILURE;
   }
 
