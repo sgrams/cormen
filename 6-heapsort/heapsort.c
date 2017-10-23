@@ -164,7 +164,7 @@ int main (int argc, char **argv) {
     numbersTable=realloc(numbersTable, (inputFileLineCounter+1)*sizeof(int));
     c = fscanf(inputFile, "%i", (numbersTable+inputFileLineCounter));
   }
-  inputFileLineCounter--; //for goes one line to far to check if EOF...
+  inputFileLineCounter--; // for loop goes one line too far to check if EOF...
 
   // run heapsort on the array
   heapsort(numbersTable, inputFileLineCounter-1, type);
