@@ -58,8 +58,9 @@ int main (int argc, char **argv) {
   char *outputFileName;
   char c;
 
-  int  numbersTableSize, *numbersTable=NULL;
-  int  i, type=0, inputFileFlag=0, outputFileFlag=0, inputFileLineCounter=0;
+  int  *numbersTable=NULL;
+  int  i, type=0, inputFileFlag=0, outputFileFlag=0;
+  int  numbersTableSize, inputFileLineCounter=0;
   
   // getopt setting;
   // l stands for loop (iterative version of heapify)
