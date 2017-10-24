@@ -16,27 +16,12 @@
  * `valgrind --leak-check=full -v <various combinations of commands>`
  *
  * Heapsort definition has to differ from the pseudocode
- * I had to change Heapsort function definition as well as other because
- * I didn't want to use the global variable (heapsize) and I wanted to pass the heapify type, too.
+ * I had to change Heapsort function definition as well as the others because
+ * I didn't want to use the global variable (heapSize) and I wanted to pass the heapify type, too.
  * In my implementation I started counting in the array from 0, unlike the pseudocode which counts from 1.
- * That forces my to decrement array length (numbersTableLength--;) to avoid errors.
+ * That forces me to decrement array length (numbersTableLength--;) to avoid errors.
  *
  * Tested under kernel 4.13.5-1-ARCH and gcc 7.2.0 
- *
- * 2. LICENSE
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
 */
 
