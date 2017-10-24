@@ -17,7 +17,10 @@
  *
  * Heapsort definition has to differ from the pseudocode
  * I had to change Heapsort function definition as well as other because
- * I didn't want to use the global variable and I wanted to pass the heapify type, too.
+ * I didn't want to use the global variable (heapsize) and I wanted to pass the heapify type, too.
+ * In my implementation I started counting in the array from 0, unlike the pseudocode which counts from 1.
+ * That forces my to decrement array length (numbersTableLength--;) to avoid errors.
+ *
  * Tested under kernel 4.13.5-1-ARCH and gcc 7.2.0 
  *
  * 2. LICENSE
@@ -44,7 +47,7 @@
 
 #define defaultOutputFileName "out.txt"
 
-void heapsort  (int *A, int heapSize, int type);
+void heapsort  (int *A, int numbersTableLength, int type);
 void buildHeap (int *A, int heapSize);
 void heapify   (int *A, int i, int heapSize);
 void heapifyIt (int *A, int i, int heapSize);
@@ -62,19 +65,19 @@ int main (int argc, char **argv) {
   int  i, type=0, inputFileFlag=0, outputFileFlag=0;
   int  numbersTableSize, inputFileLineCounter=0;
   
-  // getopt setting;
+  // Getopt settings;
   // l stands for loop (iterative version of heapify)
   // i stands for input, o stands for output
   while ((c=getopt(argc, argv, "lio")) != -1)
     switch (c) {
-      case 'i': // allocs memory and sets input filename (or path)
-        // check if not file and stream at once
+      case 'i': // Allocates memory and sets input filename (or path)
+        // Checks if not file and stream at once
         if (!isatty(fileno(stdin))) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m input cannot be a file and a stream at once\n"
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
-        // check if input file is specified
+        // Checks if input file is specified
         if (argv[optind] == NULL) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file not specified\n"
               "sorting terminated\n", argv[0]);
@@ -84,14 +87,14 @@ int main (int argc, char **argv) {
         strncpy(inputFileName, argv[optind], strlen(argv[optind])+1);
         inputFileFlag=1;
         break;
-      case 'o': // allocs memory and sets output filename (or path)
-        // check if not file and stream at once
+      case 'o': // Allocates memory and sets output filename (or path)
+        // Checks if not file and stream at once
         if (!isatty(fileno(stdout))) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m output cannot be a file and a stream at once\n"
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
-        // check if output file is specified
+        // Checks if output file is specified
         if (argv[optind] == NULL) {
           fprintf(stderr, "%s: \033[31mfatal error:\033[0m output file not specified\n"
               "sorting terminated\n", argv[0]);
@@ -111,7 +114,7 @@ int main (int argc, char **argv) {
         break;
     }
 
-  // there has to be a pipe/file on stdin, or inputFileFlag has to be set, to run the program
+  // There has to be a pipe/file on stdin, or inputFileFlag has to be set, to run the program
   if (!isatty(fileno(stdin))) {
     inputFile = stdin;
   }
@@ -123,7 +126,7 @@ int main (int argc, char **argv) {
       }
       return EXIT_FAILURE;
     }
-    // opening the input file
+    // Opening the input file
     inputFile = fopen((const char *) inputFileName, "r");
   }
   if (!inputFile) {
@@ -135,12 +138,12 @@ int main (int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  // check if there is a pipe or a terminal on the stdout
+  // Check if there is a pipe or a terminal on the stdout
   if (!isatty(fileno(stdout))) {
       outputFile = stdout;
   }
   else {
-    // checking if the file names are not the same
+    // Checking if the file names are not the same
     if (outputFileFlag && !strcmp(inputFileName, outputFileName)) {
       fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\n"
           "sorting terminated\n", argv[0], inputFileName);
@@ -148,17 +151,17 @@ int main (int argc, char **argv) {
       free(outputFileName);
       return EXIT_FAILURE;
     }
-    // if the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
+    // If the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
     if (!outputFileFlag) {
       outputFileName = malloc((strlen(defaultOutputFileName)+1)*sizeof(char));
       strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
       outputFileFlag=1;
     }
-    // opening output file
+    // Opening output file
     outputFile = fopen((const char *) outputFileName, "w");
  }
  
-  // if the outputFile is not writable, return failure...
+  // If the outputFile is not writable, return failure...
   if (!outputFile) {
     fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to write to file %s\n", argv[0], outputFileName);
     if (inputFileFlag) {
@@ -172,38 +175,39 @@ int main (int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  // reading input and counting numbers...
-  // reserving 128 ints at the beginning reduces usage of realloc function
+  // Reading input and counting numbers...
+  // Reserving memory for array at the beginning reduces usage of realloc function
   // what makes the program faster
   for (inputFileLineCounter=0, numbersTableSize=128,
       numbersTable=malloc(numbersTableSize*sizeof(int)), c=0; c != EOF; inputFileLineCounter++) 
   {
-    //check if file is bigger than size and realloc for more memory
+    // Checks if file is bigger than size and realloc for more memory
     if (inputFileLineCounter >= numbersTableSize) {
-      //shift to left one bit, makes more memory
+      // Shifts to the left one bit, makes more memory
+      // 128 -> 256 -> 512 -> 1024...
       numbersTableSize<<=1;
       numbersTable=realloc(numbersTable, numbersTableSize*sizeof(int));
     }
     c=fscanf(inputFile, "%i", (numbersTable+inputFileLineCounter));
   }
-  // for loop goes one line too far to check if EOF
-  // decrement and dealloc unused memory
+  // For loop goes one line too far to check if EOF
+  // Decrements and deallocates unused memory
   numbersTable=realloc(numbersTable, (--inputFileLineCounter)*sizeof(int));
   
-  // run heapsort on the array
-  heapsort(numbersTable, inputFileLineCounter-1, type);
+  // Runs heapsort on the array
+  heapsort(numbersTable, inputFileLineCounter, type);
 
-  // write sorted array to outputFile
+  // Writes sorted array to outputFile
   for (i=0; i<inputFileLineCounter; i++)
     fprintf(outputFile, "%i\n", *(numbersTable+i));
 
-  // closing opened files if they are not streams
+  // Closes opened files if they are not streams
   if (isatty(fileno(stdin)))
     fclose(inputFile);
   if (isatty(fileno(stdout)))
     fclose(outputFile);
 
-  // freeing memory
+  // Deallocates memory
   if (isatty(fileno(stdin)))
     free(inputFileName);
   if (isatty(fileno(stdout)))
@@ -213,10 +217,14 @@ int main (int argc, char **argv) {
   return 0;
 }
 
-void heapsort (int *A, int heapSize, int type) {
+void heapsort (int *A, int numbersTableLength, int type) {
     int i;
+    // We have to decrement because we started counting from 0,
+    // unlike in the pseudocode from 1
+    int heapSize = numbersTableLength-1;
+
     buildHeap(A, heapSize);
-    for (i=heapSize; i>0; i--)
+    for (i=heapSize; i>=1; i--)
     {
       exchange(A, 0, i);
       heapSize--;
@@ -232,19 +240,19 @@ void buildHeap (int *A, int heapSize) {
       heapify(A, i, heapSize);
 }
 
-// recursive heapify version
+// Recursive heapify version
 void heapify (int *A, int i, int heapSize) {
   int largest;
 
   int le = (2*i);
   int ri = (2*i)+1;
 
-  if (le <= heapSize && A[le] > A[i])
+  if (le <= heapSize && *(A+le) > *(A+i))
     largest = le;
   else
     largest = i;
 
-  if (ri <= heapSize && A[ri] > A[largest])
+  if (ri <= heapSize && *(A+ri) > *(A+largest))
     largest = ri;
 
   if (largest != i) {
@@ -253,7 +261,7 @@ void heapify (int *A, int i, int heapSize) {
   }
 }
 
-// iterative heapify version
+// Iterative heapify version
 void heapifyIt (int *A, int i, int heapSize) {
   int largest, le, ri;
 
@@ -262,12 +270,12 @@ void heapifyIt (int *A, int i, int heapSize) {
     le = (2*i);
     ri = (2*i)+1;
   
-    if (le <= heapSize && A[le] > A[i])
+    if (le <= heapSize && *(A+le) > *(A+i))
       largest = le;
     else
       largest = i;
   
-    if (ri <= heapSize && A[ri] > A[largest])
+    if (ri <= heapSize && *(A+ri) > *(A+largest))
       largest = ri;
   
     if (largest != i) {
@@ -279,9 +287,9 @@ void heapifyIt (int *A, int i, int heapSize) {
   }
 }
 
-// exchange function uses the XOR style swap
+// Exchange function that uses the XOR style swap
 void exchange (int *A, int a, int b) {
-  // if *(A+a) == *(A+b), the XOR operation would zero both of variables
+  // If *(A+a) would equal *(A+b), the XOR operation would zero both of variables
   if (*(A+a) != *(A+b)) {
     *(A+a) ^= *(A+b);
     *(A+b) ^= *(A+a);
