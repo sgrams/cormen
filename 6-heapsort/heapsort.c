@@ -1,5 +1,5 @@
 /*
- * AL2.4, Stanisław Juliusz Grams (251000 UG MFI), 20171022
+ * AL2.4, Stanisław Juliusz Grams (251000 UG MFI), 20171024
  * 
  * 1. USING
  *
