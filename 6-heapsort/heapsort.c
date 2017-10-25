@@ -252,8 +252,8 @@ void heapifyIt (int *A, int i, int heapSize) {
 
   while (i<=heapSize)
   {
-    le = (2*i);
-    ri = (2*i)+1;
+    le = (2*i)+1;
+    ri = (2*i)+2;
   
     if (le <= heapSize && *(A+le) > *(A+i))
       largest = le;
