@@ -21,19 +21,20 @@
  *
  * Example execution with constant c (sortConst) set to 8192:
  *
- * ➜  7-quicksort git:(master) ✗ ./quicksort -m -t -c 8192
+ *
+ * $ ./quicksort -t -c 8192
  * quick_sort algorithm
  * array size N | random data | unfavorable data
- *         8192       0.00195            0.14234
- *        16384       0.00406            0.57252
- *        32768       0.00875            2.28391
- *        65536       0.01737            9.10642
- * quick_sort_mod (with insert_sort) algorithm
+ *         8192       0.00353            0.14619
+ *        16384       0.00409            0.60878
+ *        32768       0.00861            2.35473
+ *        65536       0.01915            9.73219
+ * quick_sort_mod (with insert_sort, c=8192) algorithm
  * array size N | random data | unfavorable data
- *         8192       0.03544            0.12119
- *        16384       0.07652            0.75377
- *        32768       0.14707            3.47570
- *        65536       0.37374           14.82215
+ *         8192       0.02920            0.10042
+ *        16384       0.05073            0.84374
+ *        32768       0.12965            4.11824
+ *        65536       0.27783           17.89473
  *
 */
 
@@ -44,13 +45,11 @@
 #include <time.h>
 
 #define defaultOutputFileName "out.txt"
-#define defaultSortConst      10
+#define defaultSortConst      1024
 #define defaultTestMode       0
 #define defaultSortMode       0
 
-//#define defaultArraySize      16384 // stack overflow??? or heap overflow??? segfault anyway
 #define defaultArraySize      8192
-//#define defaultArraySize      256
 
 
 void exchange        (int *A, int a, int b);
@@ -216,7 +215,7 @@ int main (int argc, char **argv) {
       if (!testSortType)
         printf("quick_sort algorithm\n");
       else
-        printf("quick_sort_mod (with insert_sort) algorithm\n");
+        printf("quick_sort_mod (with insert_sort, c=%i) algorithm\n", sortConst);
       printf("array size N | random data | unfavorable data\n");
 
       for (j=0, k=defaultArraySize; j<4; k=(k<<1), j++)
@@ -307,10 +306,13 @@ int main (int argc, char **argv) {
     numbersTable=realloc(numbersTable, (--inputFileLineCounter)*sizeof(int));
 
     // Runs quicksort on the array
-    if (sortMode == 0)
-      quick_sort(numbersTable, 0, inputFileLineCounter-1);
-    else
+    if (sortMode) {
+      if (verbose_flag)
+        printf("sortConst=%i\n", sortConst);
       quick_sort_mod(numbersTable, 0, inputFileLineCounter-1, sortConst);
+    }
+    else
+      quick_sort(numbersTable, 0, inputFileLineCounter-1);
 
     // Writes sorted array to outputFile
     for (i=0; i<inputFileLineCounter; i++)
@@ -332,18 +334,22 @@ int main (int argc, char **argv) {
 }
 void insert_sort (int *A, int r) {
   if (verbose_flag)
-    fprintf(stdout, "insert_sort: I am inserting!\n");
-  int i, j, tmp;
-  for (j=1; j<=r; j++)
   {
-    tmp = A[j];
-    i=j-1;
-    while (i>0 && A[i]>tmp)
+    static int verbose_check;
+    fprintf(stdout, "insert_sort: I am inserting! %i\n", ++verbose_check);
+  }
+
+  int i, j, k;
+  for (i=0; i<(r+1); i++)
+  {
+    k = *(A+i);
+    j = i-1;
+    while (j >= 0 && *(A+j) > k)
     {
-      A[i+1] = A[i];
-      i--;
-      A[i+1] = tmp;
+      *(A+(j+1)) = *(A+j);
+      j--;
     }
+    A[j+1] = k;
   }
 }
 
@@ -370,8 +376,8 @@ void quick_sort_mod (int *A, int p, int r, int c) {
 }
 
 int partition (int *A, int p, int r) {
-  int x=A[r]; // pivot
-  int i=p-1, j;
+  int x = *(A+r); // pivot
+  int i = p-1, j;
 
   for (j=p; j<=r; j++)
   {
