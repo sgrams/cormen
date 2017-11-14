@@ -17,7 +17,7 @@
  * Checked for memory leaks with
  * `valgrind --leak-check=full -v <various combinations of commands>`
  *
- * Tested under kernel 4.13.5-1-ARCH and gcc 7.2.0 
+ * Tested under kernel 4.13.11-1-ARCH and gcc 7.2.0 
  *
  * Example execution with constant c (sortConst) set to 8192:
  *
