@@ -1,9 +1,9 @@
 /*
  * AL4.7, Stanisław Juliusz Grams (251000 UG MFI), 20171126
  * 
- * 1. USING
+ * 1. USAGE
  *
- * Compile with command `gcc -o quicksort quicksort.c -Wextra -Wall -pedantic -std=gnu99`
+ * Compile with command `gcc -o radix radix.c `pkg-config --cflags glib-2.0 --libs glib-2.0`
  * Syntax: ./radixsort [-q (for quick_sort sorting) -t (for test mode)] -i inputFile -o outputFile
  *
 */
@@ -21,8 +21,6 @@
 #define defaultSortMode       0
 #define defaultStrBuffer      1024
 #define defaultNameBuffer     256
-#define W_INT                 32
-#define D_BITS                2
 
 typedef struct {
     gsize     len;
@@ -33,7 +31,6 @@ typedef struct {
 void exchange        (name_entry *A, gint a, gint b);
 void quick_sort      (name_entry *A, gint p, gint r);
 void radix_sort      (name_entry *A, gint n);
-void siz_count       (name_entry *A, gint n, gint b);
 void str_count       (name_entry *A, gint n, gint b);
 void ne_cpy          (name_entry *B, name_entry A);
 gint char_to_index   (gchar c);
@@ -47,13 +44,13 @@ gint main (gint argc, gchar **argv) {
   FILE *inputFile;
   FILE *outputFile;
 
-  gchar *inputFileName;
-  gchar *outputFileName;
-  gchar *constInputError=NULL;
-  gchar *inToken, *nameBuf;
+  gchar *inputFileName = NULL;
+  gchar *outputFileName = NULL;
+  gchar *inToken = NULL, *nameBuf = NULL;
   gchar c;
 
-  name_entry *strTable = NULL;
+  name_entry *strTable   = NULL;
+  name_entry *strTable_1 = NULL;
   gchar strBuf[defaultStrBuffer];
 
   gint  ch, i; // iterators 
@@ -67,7 +64,7 @@ gint main (gint argc, gchar **argv) {
   setlocale (LC_ALL, "pl_PL.UTF-8");
   // Getopt settings;
   // i stands for input, o stands for output
-  while ((ch=getopt(argc, argv, "vioqt")) != -1)
+  while ((ch=getopt(argc, argv, "vi:o:qt")) != -1)
     switch (ch) {
       case 'i': // Allocates memory and sets input filename (or path)
         // Checks if not file and stream at once
@@ -82,7 +79,7 @@ gint main (gint argc, gchar **argv) {
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
-        inputFileName = malloc((strlen(argv[optind])+1)*sizeof(gchar));
+        inputFileName = g_malloc((strlen(argv[optind])+1)*sizeof(gchar));
         strncpy(inputFileName, argv[optind], strlen(argv[optind])+1);
         inputFileFlag=1;
         break;
@@ -99,7 +96,7 @@ gint main (gint argc, gchar **argv) {
               "sorting terminated\n", argv[0]);
           return EXIT_FAILURE;
         }
-        outputFileName = malloc((strlen(argv[optind])+1)*sizeof(gchar));
+        outputFileName = g_malloc((strlen(argv[optind])+1)*sizeof(gchar));
         strncpy(outputFileName, argv[optind], strlen(argv[optind])+1);
         outputFileFlag=1;
         break;
@@ -127,7 +124,7 @@ gint main (gint argc, gchar **argv) {
     if (!inputFileFlag) {
       fprintf(stderr, "Syntax: ./radixsort [-q (for quick_sort sorting) -t (for test mode)] -i inputFile -o outputFile\n");
       if (outputFileFlag) {
-        free(outputFileName);
+        g_free(outputFileName);
       }
       return EXIT_FAILURE;
     }
@@ -137,9 +134,9 @@ gint main (gint argc, gchar **argv) {
   if (!inputFile) {
     fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to open file %s\n"
             "sorting terminated\n", argv[0], inputFileName);
-    free(inputFileName);
+    g_free(inputFileName);
     if (isatty(fileno(stdout)))
-      free(outputFileName);
+      g_free(outputFileName);
     return EXIT_FAILURE;
   }
 
@@ -152,13 +149,13 @@ gint main (gint argc, gchar **argv) {
     if (outputFileFlag && !strcmp(inputFileName, outputFileName)) {
       fprintf(stderr, "%s: \033[31mfatal error:\033[0m input file '%s' is as the same as output file\n"
           "sorting terminated\n", argv[0], inputFileName);
-      free(inputFileName);
-      free(outputFileName);
+      g_free(inputFileName);
+      g_free(outputFileName);
       return EXIT_FAILURE;
     }
     // If the outputFileFlag is not set, then the defaultOutputFileName will become outputFileName
     if (!outputFileFlag) {
-      outputFileName = malloc((strlen(defaultOutputFileName)+1)*sizeof(gchar));
+      outputFileName = g_malloc((strlen(defaultOutputFileName)+1)*sizeof(gchar));
       strncpy(outputFileName, defaultOutputFileName, strlen(defaultOutputFileName)+1);
       outputFileFlag=1;
     }
@@ -169,11 +166,11 @@ gint main (gint argc, gchar **argv) {
     if (!outputFile) {
       fprintf(stderr, "%s: \033[31mfatal error:\033[0m unable to write to file %s\n", argv[0], outputFileName);
       if (inputFileFlag) {
-        free(inputFileName);
+        g_free(inputFileName);
         fclose(inputFile);
       }
       if (outputFileFlag) {
-        free(outputFileName);
+        g_free(outputFileName);
         fclose(outputFile);
       }
       return EXIT_FAILURE;
@@ -186,7 +183,7 @@ gint main (gint argc, gchar **argv) {
     */
     
     for (inputFileLineCounter=0, strTableSize=1024000,
-       strTable=malloc(strTableSize*sizeof(name_entry)), c=0; c != EOF; inputFileLineCounter++) 
+       strTable=g_malloc(strTableSize*sizeof(name_entry)), c=0; c != EOF; inputFileLineCounter++) 
     {
       /* Checks if file is bigger than size and reallocates for more memory */
       if (inputFileLineCounter >= strTableSize) {
@@ -200,26 +197,68 @@ gint main (gint argc, gchar **argv) {
 
       nameBuf = strBuf;
       inToken = strsep(&nameBuf, " ");
-      strTable[inputFileLineCounter].name = malloc((strlen(nameBuf) + 1)*sizeof(gchar));
+      strTable[inputFileLineCounter].name = g_strdup(nameBuf);
       strTable[inputFileLineCounter].len = strlen(nameBuf);
-      strTable[inputFileLineCounter].pop = strtoimax(inToken, NULL, 10);
-      strncpy(strTable[inputFileLineCounter].name, (const gchar*)nameBuf, (size_t)strTable[inputFileLineCounter].len);
+      strTable[inputFileLineCounter].pop = strtol(inToken, NULL, 10);
     }
     
     /* For loop goes one line too far to check if EOF
      * Decrements and deallocates unused memory
      */
     strTable=realloc(strTable, inputFileLineCounter*sizeof(name_entry));
+    
+    if (testMode) {
+      // duplicating struct array
+      strTable_1 = (name_entry *)g_malloc (inputFileLineCounter * sizeof(name_entry));
+      for (i=0; i<inputFileLineCounter; i++)
+        ne_cpy(&strTable_1[i], strTable[i]);
 
-    // --- Sorting here --- //
-    //quick_sort(strTable, 0, inputFileLineCounter-1);
-    radix_sort(strTable, inputFileLineCounter);
-    // --- and tests too -- //
+      printf("Times of sorting %i char * array.\n", inputFileLineCounter);
 
+      // radix sort
+      start = clock();
+      radix_sort(strTable, inputFileLineCounter);
+      end = clock();
+      printf("  radix_sort: %4.3lfs\n", (gdouble) difftime(end, start) / CLOCKS_PER_SEC);
+
+      // quick sort
+      start = clock();
+      quick_sort(strTable_1, 0, inputFileLineCounter-1);
+      end = clock();
+      printf("  quick_sort: %4.3lfs\n", (gdouble) difftime(end, start) / CLOCKS_PER_SEC);
+
+      for (i=0; i<inputFileLineCounter; i++)
+        fprintf(outputFile, "%s\n", strTable[i].name);
+      
+      if (isatty(fileno(stdin)))
+        fclose(inputFile);
+      if (isatty(fileno(stdout)))
+        fclose(outputFile);
+
+      for (i=0; i<inputFileLineCounter; i++)
+      {
+        g_free((strTable+i)->name);
+        g_free((strTable_1+i)->name);
+      }
+      g_free(strTable);
+      g_free(strTable_1);
+
+      if (isatty(fileno(stdin)))
+        g_free(inputFileName);
+      if (isatty(fileno(stdout)))
+        g_free(outputFileName);
+
+      return EXIT_SUCCESS;
+    }
+
+    if (sortMode)
+      quick_sort(strTable, 0, inputFileLineCounter-1);
+    else
+      radix_sort(strTable, inputFileLineCounter);
 
     // Writes sorted array to outputFile
     for (i=0; i<inputFileLineCounter; i++)
-      fprintf(outputFile, "(%i) %s\n", strTable[i].len, strTable[i].name);
+      fprintf(outputFile, "%s\n", strTable[i].name);
     
     // Closes opened files if they are not streams
     if (isatty(fileno(stdin)))
@@ -229,10 +268,17 @@ gint main (gint argc, gchar **argv) {
 
     // Deallocates memory
     if (isatty(fileno(stdin)))
-      free(inputFileName);
+      g_free(inputFileName);
     if (isatty(fileno(stdout)))
-      free(outputFileName); 
-    // free();
+      g_free(outputFileName); 
+    
+    for (i=0; i<inputFileLineCounter; i++)
+      {
+        g_free((strTable+i)->name);
+        g_free((strTable_1+i)->name);
+      }
+      g_free(strTable);
+      g_free(strTable_1);
   }
   return 0;
 }
@@ -248,23 +294,20 @@ void radix_sort (name_entry *A, gint n) {
   gint max = (gint) find_max_length(A, n);
   gint b;
 
-  // sorting names by lengths makes the string sorting faster
-  //for (b=1; max/b > 0; b *= 10)
-    //siz_count(A, n, b);
   // string sorting
   for (b=max-1; b >= 0; b--)
     str_count(A, n, b);
 }
 
 void str_count (name_entry *A, gint n, gint b) {
-  gint i, k, j=0;
+  gint i, k;
   gint c[28] = {0};
   name_entry *B = g_malloc (n*sizeof(name_entry)); // output array
 
   // counting frequencies
   for (i=0; i<n; i++)
   {
-    if (A[i].len >= b)
+    if (A[i].len >= (guint)b)
       c[char_to_index(A[i].name[b])]++;
     else
       c[0]++;
@@ -276,9 +319,9 @@ void str_count (name_entry *A, gint n, gint b) {
 
   for (i=n-1; i>=0; i--)
   {
-    if (A[i].len >= b)
+    if (A[i].len >= (guint)b)
     {
-      ne_cpy(&B[c[char_to_index(A[i].name[b])] - 1], A[i]);
+      ne_cpy(&B[c[char_to_index(A[i].name[b])]-1], A[i]);
       c[char_to_index(A[i].name[b])]--;
     }
     else
@@ -289,7 +332,11 @@ void str_count (name_entry *A, gint n, gint b) {
   }
 
   for (i=0; i<n; i++)
+  {
+    g_free((A+i)->name);
     ne_cpy((A+i), *(B+i));
+    g_free((B+i)->name);
+  }
 
   g_free(B);
 }
@@ -305,31 +352,11 @@ gint char_to_index (gchar c) {
     return 27;
   else return 0;
 }
-void siz_count (name_entry *A, gint n, gint b) {
-  gint i;
-  gint c[10]    = {0};
-  name_entry *B = g_malloc (n*sizeof(name_entry)); // output array
-
-  for (i=0; i<n; i++)
-    c[(A[i].len/b)%10]++;
-  for (i=1; i<10; i++)
-    c[i]+=c[i-1];
-  for (i=n-1; i>=0; i--)
-  {
-    ne_cpy(&B[c[(A[i].len/b)%10] - 1], A[i]);
-    c[(A[i].len/b)%10]--;
-  }
-  for (i=0; i<n; i++)
-    ne_cpy(&A[i], B[i]);
-
-  g_free(B);
-}
 
 void ne_cpy (name_entry *B, name_entry A) {
-  B->name = malloc(strlen(A.name)+1);
-  B->len = A.len;
-  B->pop = A.pop;
-  strcpy(B->name, A.name);
+  B->name = g_strdup(A.name);
+  B->len = (gint) A.len;
+  B->pop = (gint) A.pop;
 }
 
 void quick_sort (name_entry *A, gint p, gint r) {
@@ -347,11 +374,9 @@ gint partition (name_entry *A, gint p, gint r) {
 
   for (j=p; j<=r; j++)
   {
-    if (g_utf8_collate(
-          g_utf8_normalize(g_utf8_casefold(A[j].name, strlen(A[j].name)), strlen(A[j].name), G_NORMALIZE_DEFAULT),
-          g_utf8_normalize(g_utf8_casefold(x, strlen(x)), strlen(x), G_NORMALIZE_DEFAULT)) <= 0) {
+    if (g_strcmp0 (A[j].name, x) <= 0) {
       ++i;
-      exchange(A, i, j);
+      exchange (A, i, j);
     }
   }
   if (i<r) return i;
@@ -359,7 +384,7 @@ gint partition (name_entry *A, gint p, gint r) {
 }
 
 void exchange (name_entry *A, gint a, gint b) {
-    gchar *tmp = A[b].name;
-    A[b].name=A[a].name;
-    A[a].name=tmp;
+  name_entry tmp = *(A+a);
+  *(A+a) = *(A+b);
+  *(A+b) = tmp;
 }
