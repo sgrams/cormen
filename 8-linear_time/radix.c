@@ -64,7 +64,7 @@ gint main (gint argc, gchar **argv) {
   setlocale (LC_ALL, "pl_PL.UTF-8");
   // Getopt settings;
   // i stands for input, o stands for output
-  while ((ch=getopt(argc, argv, "vi:o:qt")) != -1)
+  while ((ch=getopt(argc, argv, "vioqt")) != -1)
     switch (ch) {
       case 'i': // Allocates memory and sets input filename (or path)
         // Checks if not file and stream at once
