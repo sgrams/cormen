@@ -604,6 +604,7 @@ list *list_duplicate_unique (list *L)
   node *node_1 = NULL;
   node *node_2 = NULL;
   node *node_3 = NULL;
+  node *node_dup = NULL;
   
   gchar *val   = NULL;
   
@@ -614,6 +615,7 @@ list *list_duplicate_unique (list *L)
   */
   if (list_2->sentinel->next == list_2->sentinel)
     return list_2;
+ 
   
   while (node_2 != list_2->sentinel)
   {
@@ -624,13 +626,16 @@ list *list_duplicate_unique (list *L)
     {
       val = node_2->data;
       if (!g_strcmp0(node_3->data, val))
-        node_1->next = node_3->next;
+      {
+        node_dup = node_3;
+        node_3 = node_3->next; 
+        list_remove_node(node_dup);
+      }
       else
-        node_1 = node_3;
-      node_3 = node_3->next;
+        node_3 = node_3->next;
     }
     node_2 = node_2->next;
   }
-  
+ 
   return list_2;
 }
