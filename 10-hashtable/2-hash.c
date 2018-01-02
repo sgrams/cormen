@@ -5,8 +5,8 @@
  *
  * 1. USAGE
  *
- *   Compile with command `gcc -o 2-hash 2-hash.c
- *   `pkg-config --cflags glib-2.0 --libs glib-2.0` -lm
+ *   Compile with command "gcc -o 2-hash 2-hash.c
+ *   `pkg-config --cflags glib-2.0 --libs glib-2.0` -lm"
  *
  *   Syntax: "./2-hash -i keys.txt -v (for verbose output) -b bigM -s smallM [-h (0=djb2, 1=xor, 2=sum) strtoi style]"
  *
@@ -51,8 +51,7 @@ int main (gint argc, gchar **argv)
   name_entry *names_array = NULL;
   name_entry *hashtab_arr = NULL;
   
-  gulong *hash_array = NULL;
-  gulong res;
+  glong res;
 
   gint input_file_lc;
   gint names_array_size;
@@ -179,7 +178,7 @@ int main (gint argc, gchar **argv)
     if (res == -1)
       printf("Could not insert A[%i] (%s), not enough space.\n", i, names_array[i].name);
     else
-      printf("Inserted A[%i] (%s) into H[%i].\n", i, names_array[i].name, res);
+      printf("Inserted A[%i] (%s) into H[%lu].\n", i, names_array[i].name, res);
   }
 
   printf("\n");
@@ -190,7 +189,7 @@ int main (gint argc, gchar **argv)
     if (res == -1)
       printf("Could not find %s in hashtable.\n", names_array[i].name);
     else
-      printf("Found %s (A[%i]) under H[%i].\n", names_array[i].name, i, res);
+      printf("Found %s (A[%i]) under H[%lu].\n", names_array[i].name, i, res);
   }
   g_free(hashtab_arr);
  
@@ -211,7 +210,7 @@ int main (gint argc, gchar **argv)
       if (res == -1)
         printf("Could not insert A[%i] (%s), not enough space.\n", i, names_array[i].name);
       else
-        printf("Inserted A[%i] (%s) into H[%i].\n", i, names_array[i].name, res);
+        printf("Inserted A[%i] (%s) into H[%lu].\n", i, names_array[i].name, res);
     }
     else
       hash_arr_insert(hashtab_arr, &names_array[i], big_m, strtoi_flag, 0);
@@ -226,7 +225,7 @@ int main (gint argc, gchar **argv)
     if (res == -1)
       printf("Could not find %s in hashtable.\n", names_array[i].name);
     else
-      printf("Found %s (A[%i]) under H[%i].\n", names_array[i].name, i, res);
+      printf("Found %s (A[%i]) under H[%lu].\n", names_array[i].name, i, res);
   }
 
   /*
@@ -290,10 +289,13 @@ glong hash_arr_search (name_entry *hash_arr, gchar *key, gint m, gint strtoi_fla
     hash = hash_func(key, i, m, strtoi_flag);
     if (!g_strcmp0(hash_arr[hash].name, key))
     {
-      if (cnt == 1)
-        printf("(1 attempt) ");
-      else
-        printf("(%i attempts) ", cnt);
+      if (test_flag)
+      {
+        if (cnt == 1)
+          printf("(1 attempt) ");
+        else
+          printf("(%i attempts) ", cnt);
+      }
 
       return hash;
     }
