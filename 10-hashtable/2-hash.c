@@ -185,7 +185,7 @@ int main (gint argc, gchar **argv)
   printf("Searching for last three elements...\n");
   for (j=i=(int)(float)roundf((0.8*small_m))-1; i>j-3; i--)
   {
-    res = hash_arr_search(hashtab_arr, names_array[i].name, small_m, strtoi_flag, 0);
+    res = hash_arr_search(hashtab_arr, names_array[i].name, small_m, strtoi_flag, 1);
     if (res == -1)
       printf("Could not find %s in hashtable.\n", names_array[i].name);
     else
@@ -221,7 +221,7 @@ int main (gint argc, gchar **argv)
 
   for (j=i=(int)(float)roundf((0.8*big_m))-1; i>j-20; i--)
   {
-    res = hash_arr_search(hashtab_arr, names_array[i].name, big_m, strtoi_flag, 0);
+    res = hash_arr_search(hashtab_arr, names_array[i].name, big_m, strtoi_flag, 1);
     if (res == -1)
       printf("Could not find %s in hashtable.\n", names_array[i].name);
     else
