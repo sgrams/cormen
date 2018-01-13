@@ -1,4 +1,4 @@
-/* AL7.5, Stanisław Juliusz Grams (251000 UG MFI), 20180107
+/* AL7.5, Stanisław Juliusz Grams (251000 UG MFI), 20180113
  *
  * 1. USAGE
  *
@@ -18,8 +18,10 @@
 
 #define defaultStringBuffer   1024
 #define defaultLineSize       256
-#define defaultSyntax         "%s -i keys.txt [-d (display tree) -p (print tree in-order) -r (remove elements)]\n"
+#define defaultSyntax         "%s -i keys.txt [-d (display tree) "\
+"-p (print tree in-order) -r (remove elements)]\n"
 #define defaultErrorSyntax    "%s: \033[31mfatal error:\033[0m "
+
 typedef struct node {
   gint val;
   gint flag;
@@ -28,18 +30,18 @@ typedef struct node {
   struct node *pa;
 } node_t;
 
+void tree_close       (node_t *tree);
 void tree_print       (node_t *tree);
 void tree_print_node  (node_t *node);
 void tree_display     (node_t *tree, gint space);
 
-node_t *tree_delete      (node_t *tree, gint key);
-node_t *tree_delete_node (node_t *tree, node_t *node);
-node_t *tree_init         (node_t *tree, gint value);
+node_t *tree_delete       (node_t *tree, gint key);
+node_t *tree_delete_node  (node_t *tree, node_t *z);
+node_t *tree_init         (gint value);
 node_t *tree_insert       (node_t *tree, gint value);
+node_t *tree_minimum      (node_t *tree);
 node_t *tree_search       (node_t *tree, gint value);
-node_t *tree_node_parent  (node_t *node);
-node_t *tree_transplant   (node_t *tree, node_t *a, node_t *b);
-node_t *tree_minimum (node_t *root);
+node_t *tree_transplant   (node_t *tree, node_t *u, node_t *v);
 
 gint main (gint argc, gchar *argv[])
 {
@@ -47,8 +49,7 @@ gint main (gint argc, gchar *argv[])
 
   gchar *input_filepath = NULL;
   gchar *buf_str        = NULL;
-  gchar c = '0', ch;
-  gchar stringBuffer[defaultStringBuffer];
+  gchar ch;
 
   gint i;
   gint buf_num;
@@ -92,12 +93,14 @@ gint main (gint argc, gchar *argv[])
         break;
     }
   }
-  if (!input_file) {
+  
+  if (!input_file || !(display_flag || print_flag)) {
     printf(defaultSyntax, argv[0]);
     if (input_filepath)
       g_free(input_filepath);
     return EXIT_SUCCESS;
   }
+    
   buf_str = g_malloc(defaultStringBuffer * sizeof(gchar));
 
   while (!feof(input_file))
@@ -107,13 +110,15 @@ gint main (gint argc, gchar *argv[])
       break;
     buf_num = strtol(buf_str, NULL, 0);
     if (tree == NULL)
-      tree = tree_init(tree, buf_num);
+      tree = tree_init(buf_num);
     else
       tree_insert(tree, buf_num);
   }
+  
   /*
    * Main body of program
    */
+   
   if (remove_flag) {
     printf("How many numbers do you wish to remove?\n");
     scanf("%i", &buf_num);
@@ -124,11 +129,13 @@ gint main (gint argc, gchar *argv[])
     }
     
   }
+  
   if (display_flag) {
     printf("\n");
     tree_display(tree, 0);
     printf("\n");
   }
+  
   if (print_flag) {
     printf("\n");
     tree_print(tree);
@@ -138,6 +145,7 @@ gint main (gint argc, gchar *argv[])
   /*
    * Freeing memory...
    */
+  tree_close(tree);
   g_free(buf_str);
   g_free(input_filepath);
 
@@ -145,7 +153,75 @@ gint main (gint argc, gchar *argv[])
   return 0;
 }
 
-node_t *tree_init  (node_t *tree, gint value) {
+void tree_close (node_t *tree) {
+  if (!tree)
+    return;
+  tree_close(tree->ri);
+  tree_close(tree->le);
+  g_free(tree);
+}
+
+void tree_print (node_t *tree) {
+  if (tree) {
+    tree_print (tree->le);
+    printf ("%i\n", tree->val);
+    tree_print (tree->ri);
+  }
+}
+
+void tree_print_node (node_t *node) {
+  if (node)
+    printf("%i\n", node->val);
+}
+
+void tree_display (node_t *tree, gint space) {
+  if (tree) {
+    tree_display(tree->ri, space+4);
+    if (space>0)
+      for (gint i=0; i<space; i++)
+        printf(" ");
+    printf("%i\n", tree->val);
+    tree_display(tree->le, space+4);
+  }
+}
+
+node_t *tree_delete (node_t *tree, gint key) {
+  node_t *res = NULL;
+  node_t *tmp = tree_search(tree, key);
+  if (tmp) {
+    res = tree_delete_node(tree, tmp);
+    g_free(tmp);
+    return res;
+  }
+  return tree;
+}
+
+node_t *tree_delete_node (node_t *tree, node_t *z) {
+  node_t *y = NULL;
+
+  if (!z->le) {
+    tree_transplant(tree, z, z->ri);
+  }
+  else if (!z->ri) {
+    tree_transplant(tree, z, z->le);
+  }
+  else {
+    y = tree_minimum(z->ri);
+    if (y->pa != z) {
+      tree_transplant(tree, y, y->ri);
+      y->ri = z->ri;
+      y->ri->pa = y;
+    }
+    tree_transplant(tree, z, y);
+    y->le = z->le;
+    y->le->pa = y;
+  }
+  if (tree != z)
+    return tree;
+  else return y;
+}
+
+node_t *tree_init (gint value) {
   node_t *node = g_malloc(sizeof(node_t));
 
   node->pa = NULL;
@@ -159,7 +235,7 @@ node_t *tree_init  (node_t *tree, gint value) {
 
 node_t *tree_insert (node_t *tree, gint value) {
   if (!tree)
-    return tree_init(tree, value);
+    return tree_init(value);
 
   if (value < tree->val)
   {
@@ -190,28 +266,11 @@ node_t *tree_insert (node_t *tree, gint value) {
   return tree;
 }
 
-void tree_print (node_t *tree) {
-  if (tree) {
-    tree_print (tree->le);
-    printf ("%i\n", tree->val);
-    tree_print (tree->ri);
-  }
-}
-
-void tree_print_node (node_t *node) {
-  if (node)
-    printf("%i\n", node->val);
-}
-
-void tree_display (node_t *tree, gint space) {
-  if (tree) {
-    tree_display(tree->ri, space+4);
-    if (space>0)
-      for (gint i=0; i<space; i++)
-        printf(" ");
-    printf("%i\n", tree->val);
-    tree_display(tree->le, space+4);
-  }
+node_t *tree_minimum (node_t *tree) {
+  node_t *x = tree;
+  while (x->le)
+    x = x->le;
+  return x;
 }
 
 node_t *tree_search (node_t *tree, gint value) {
@@ -224,52 +283,6 @@ node_t *tree_search (node_t *tree, gint value) {
       root = root->ri;
   }
   return root;
-}
-
-node_t *tree_delete_node (node_t *tree, node_t *z) {
-  node_t *y = NULL;
-
-  if (!z->le) {
-    tree_transplant(tree, z, z->ri);
-  }
-  else if (!z->ri) {
-    tree_transplant(tree, z, z->le);
-  }
-  else {
-    y = tree_minimum(z->ri);
-    if (y->pa != z) {
-      tree_transplant(tree, y, y->ri);
-      y->ri = z->ri;
-      y->ri->pa = y;
-    }
-    tree_transplant(tree, z, y);
-    y->le = z->le;
-    y->le->pa = y;
-  }
-  return y;
-}
-
-node_t *tree_delete (node_t *tree, gint key) {
-  node_t *res = NULL;
-  node_t *tmp = tree_search(tree, key);
-  if (tmp) {
-    res = tree_delete_node(tree, tmp);
-    g_free(tmp);
-    return res;
-  }
-  return tree;
-}
-
-node_t *tree_node_parent (node_t *node) {
-  return node->pa;
-}
-
-
-node_t *tree_minimum (node_t *tree) {
-  node_t *x = tree;
-  while (x->le)
-    x = x->le;
-  return x;
 }
 
 node_t *tree_transplant (node_t *tree, node_t *u, node_t *v) {
