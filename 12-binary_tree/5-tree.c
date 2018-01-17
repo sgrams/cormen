@@ -260,6 +260,7 @@ node_t *tree_insert (node_t *tree, gint value) {
     {
       tree->ri = tree_insert(tree->ri, value);
       tree->ri->pa = tree;
+      tree->ri->pa->flag = 0;
     }
   }
 
