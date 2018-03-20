@@ -1,0 +1,3 @@
+Problem wydawania reszty:
+we: nominały np. 1zł, 5zł, 10zł.. oraz sumę w zł.
+wy: liczba ile najmniej monet należy wydać przy użyciu tych nominałów
