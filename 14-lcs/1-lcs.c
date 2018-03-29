@@ -18,9 +18,10 @@
 
 #define defaultStrBuffer 1001
 
-gint lcs_length    (gchar *str1, gchar *str2, gint **c, gint **b);
-void lcs_print     (gint **b, gchar *x, gint i, gint j);
-void lcs_print_rec (gint **b, gchar *x, gint i, gint j);
+gint    lcs_length    (gchar *str1, gchar *str2, gint **c, gint **b);
+void    lcs_print     (gint **b, gchar *x, gint i, gint j);
+void    lcs_print_rec (gint **b, gchar *x, gint i, gint j);
+GSList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j);
 
 gint main (void) {
   gint i, j, str1_len, str2_len;
@@ -53,6 +54,12 @@ gint main (void) {
 
   lcs_length(str1, str2, c, b);
   lcs_print (b, str1, str1_len, str2_len);
+  /*GSList *res = lcs_print_all (c, str1, str2, i, j);
+
+  while (res && res->next) {
+    printf("%s", res->data);
+    res = res->next;
+  }*/
 
   /* Freeing memory */
   g_free(str1);
@@ -120,4 +127,30 @@ void lcs_print_rec (gint **b, gchar *x, gint i, gint j) {
     lcs_print_rec(b, x, i-1, j);
   else
     lcs_print_rec(b, x, i, j-1);
+}
+
+GSList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j) {
+  GSList *res = NULL, *tmp = NULL;
+  if (!i || !j) {
+    res = g_slist_append(res, " ");
+    return res;
+  }
+
+  if (x[i-1] == y[j-1]) {
+    tmp = lcs_print_all(c, x, y, i-1, j-1);
+
+    while (tmp && tmp->next) {
+      tmp = tmp->next;
+    }
+  }
+  else {
+    if (c[i-1][j] >= c[i][j-1])
+      res = lcs_print_all(c, x, y, i-1, j-1);
+    if (c[i][j-1] >= c[i-1][j]) {
+      tmp = lcs_print_all(c, x, y, i, j-1);
+      res->next = tmp;
+    }
+  }
+
+  return res;
 }

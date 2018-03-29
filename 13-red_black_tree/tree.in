@@ -1,0 +1,51 @@
+digraph G {
+  graph [ratio=.36];
+  node [style=filled, color=black, shape=circle, width=.6
+    fontname=Helvetica, fontweight=bold, fontcolor=white,
+    fontsize=18, fixedsize=true];
+  0 -> 1 [weight=0];
+  0 [label="4"]
+  1 -> 3 [weight=1];
+3 [fillcolor="red", color="red"];
+  1 [label="2"]
+  3 -> null0 [weight=2];
+  null0 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  3 [label="1"]
+  3 -> null1 [weight=2];
+  null1 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  3 [label="1"]
+  1 -> 4 [weight=1];
+4 [fillcolor="red", color="red"];
+  1 [label="2"]
+  4 -> null2 [weight=2];
+  null2 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  4 [label="3"]
+  4 -> null3 [weight=2];
+  null3 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  4 [label="3"]
+  0 -> 2 [weight=0];
+2 [fillcolor="red", color="red"];
+  0 [label="4"]
+  2 -> 5 [weight=1];
+  2 [label="7"]
+  5 -> null4 [weight=2];
+  null4 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  5 [label="6"]
+  5 -> null5 [weight=2];
+  null5 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  5 [label="6"]
+  2 -> 6 [weight=1];
+  2 [label="7"]
+  6 -> null6 [weight=2];
+  null6 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  6 [label="10"]
+  6 -> 14 [weight=2];
+14 [fillcolor="red", color="red"];
+  6 [label="10"]
+  14 -> null7 [weight=3];
+  null7 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  14 [label="23"]
+  14 -> null8 [weight=3];
+  null8 [shape=box, label="nil", fontsize=12, width=0.5, height=0.3];
+  14 [label="23"]
+}
