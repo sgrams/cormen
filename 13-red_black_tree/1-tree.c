@@ -1,7 +1,9 @@
 /* AL2.1.1+2, Stanisław Juliusz Grams (251000 UG MFI), 20180306
  *
  * 1. USAGE
- *
+ * 
+ *   Install following packages:
+ *     - graphviz
  *   Compile with command `gcc -o 1-tree 1-tree.c
  *   `pkg-config --cflags glib-2.0 --libs glib-2.0`
  *
