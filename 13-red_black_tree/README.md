@@ -1,6 +1,6 @@
 ## Red-Black Trees
- 1. **Usage**
-	Install following packages:
+ 1. **Usage**  
+	Install following packages:  
 		 - graphviz  
 	Compile with `make`  
 	Syntax: `./1-tree -i keys.txt [-d (display tree) -p (print tree in-order) -r (remove elements)]`  
