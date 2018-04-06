@@ -21,7 +21,7 @@
 gint    lcs_length    (gchar *str1, gchar *str2, gint **c, gint **b);
 void    lcs_print     (gint **b, gchar *x, gint i, gint j);
 void    lcs_print_rec (gint **b, gchar *x, gint i, gint j);
-GSList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j);
+GList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j);
 
 gint main (void) {
   gint i, j, str1_len, str2_len;
@@ -30,6 +30,8 @@ gint main (void) {
 
   gchar *str1 = NULL, *str2 = NULL;
   gchar str_buf[defaultStrBuffer];
+
+  GList *res = NULL;
 
   /* Getting data from user */
   for (i=0; i<2; i++)
@@ -53,17 +55,20 @@ gint main (void) {
   }
 
   lcs_length(str1, str2, c, b);
-  lcs_print (b, str1, str1_len, str2_len);
-  /*GSList *res = lcs_print_all (c, str1, str2, i, j);
+  //lcs_print (b, str1, str1_len, str2_len);
+  res = lcs_print_all (c, str1, str2, str1_len, str2_len);
+  GList *res_iter = res;
 
-  while (res && res->next) {
-    printf("%s", res->data);
-    res = res->next;
-  }*/
+  while (res_iter != NULL ) {
+    printf("%s\n", res_iter->data);
+    res_iter = res_iter->next;
+  }
 
   /* Freeing memory */
   g_free(str1);
   g_free(str2);
+
+  g_list_free_full(res, g_free);
 
   for (i=0; i<=str1_len; i++)
   {
@@ -129,28 +134,40 @@ void lcs_print_rec (gint **b, gchar *x, gint i, gint j) {
     lcs_print_rec(b, x, i, j-1);
 }
 
-GSList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j) {
-  GSList *res = NULL, *tmp = NULL;
+GList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j) {
+  GList *res = NULL;
+  GList *tmp = NULL;
+  GList *res_iter = NULL;
+  GList *tmp_iter = NULL;
+
   if (!i || !j) {
-    res = g_slist_append(res, " ");
+    res = g_list_append(res, "");
     return res;
   }
 
   if (x[i-1] == y[j-1]) {
+    // recurse in the matrix
     tmp = lcs_print_all(c, x, y, i-1, j-1);
 
-    while (tmp && tmp->next) {
-      tmp = tmp->next;
+    // append current character to every string in the list
+    tmp_iter = tmp;
+    while (tmp_iter)
+    {
+      res = g_list_append(res, g_strdup_printf("%s%c", tmp_iter->data, x[i-1]));
+      tmp_iter = tmp_iter->next;
     }
+    return res;
   }
   else {
-    if (c[i-1][j] >= c[i][j-1])
-      res = lcs_print_all(c, x, y, i-1, j-1);
+    if (c[i-1][j] >= c[i][j-1]) {
+      res = lcs_print_all(c, x, y, i-1, j);
+    }
+    
     if (c[i][j-1] >= c[i-1][j]) {
       tmp = lcs_print_all(c, x, y, i, j-1);
-      res->next = tmp;
     }
+    // merge two lists
+    res = g_list_concat(tmp, res);
   }
-
   return res;
 }
