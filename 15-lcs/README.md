@@ -1,5 +1,5 @@
 ## Longest common subsequence
-1. **Usage**
+1. **Usage**  
 	Compile with `make`  
 	Syntax: `./1-lcs`  
     - input: two `\n` separated words
