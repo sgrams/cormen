@@ -18,14 +18,12 @@
 
 #define defaultStrBuffer 1001
 
-gint    lcs_length    (gchar *str1, gchar *str2, gint **c, gint **b);
-void    lcs_print     (gint **b, gchar *x, gint i, gint j);
-void    lcs_print_rec (gint **b, gchar *x, gint i, gint j);
-GList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j);
+gint    lcs_length          (gint **c, gchar *x, gchar *y);
+GList  *lcs_print_all       (gint **c, gchar *x, gchar *y, gint i, gint j);
+GList  *g_list_remove_dupes (GList *lis);
 
 gint main (void) {
   gint i, j, str1_len, str2_len;
-  gint **b = NULL;
   gint **c = NULL;
 
   gchar *str1 = NULL, *str2 = NULL;
@@ -46,17 +44,15 @@ gint main (void) {
   str2_len = strlen(str2);
   
   /* Allocating memory for b and c tables */
-  b = g_malloc0((str1_len+1)*sizeof(gint *));
   c = g_malloc0((str1_len+1)*sizeof(gint *));
   for (i=0; i<=str1_len; i++)
-  {
-    b[i] = g_malloc0((str2_len+1)*sizeof(gint));
     c[i] = g_malloc0((str2_len+1)*sizeof(gint));
-  }
 
-  lcs_length(str1, str2, c, b);
-  //lcs_print (b, str1, str1_len, str2_len);
+  lcs_length(c, str1, str2);
   res = lcs_print_all (c, str1, str2, str1_len, str2_len);
+
+
+  res = g_list_remove_dupes(res);
   GList *res_iter = res;
 
   while (res_iter != NULL ) {
@@ -71,67 +67,35 @@ gint main (void) {
   g_list_free_full(res, g_free);
 
   for (i=0; i<=str1_len; i++)
-  {
-    g_free(b[i]);
     g_free(c[i]);
-  }
-  g_free(b);
   g_free(c);
 
   return 0;
 }
 
-gint lcs_length (gchar *str1, gchar *str2, gint **c, gint **b) {
+gint lcs_length (gint **c, gchar *x, gchar *y) {
   gint i, j;
-  gint m = strlen(str1), n = strlen(str2);
+  gint m = strlen(x);
+  gint n = strlen(y);
 
-  for (i=1; i<=m; i++)
-  {
+  for (i=0; i<=m; i++)
     c[i][0] = 0;
-  }
-  for (i=1; i<=n; i++)
-  {
+
+  for (i=0; i<=n; i++)
     c[0][i] = 0;
-  }
 
   for (i=1; i<=m; i++)
   {
     for (j=1; j<=n; j++)
     {
-      if (str1[i-1] == str2[j-1])
-      {
+      if (x[i-1] == y[j-1])
         c[i][j] = c[i-1][j-1] + 1;
-        b[i][j] = 1;
-      }
-      else if (c[i-1][j] >= c[i][j-1])
-      {
-        c[i][j] = c[i-1][j];
-        b[i][j] = 2;
-      }
-      else {
-        c[i][j] = c[i][j-1];
-        b[i][j] = 0;
-      }
+      else
+        (c[i][j-1] >= c[i-1][j]) ? (c[i][j] = c[i][j-1]) : (c[i][j] = c[i-1][j]);
     }
   }
+
   return c[m][n];
-}
-
-void lcs_print (gint **b, gchar *x, gint i, gint j) {
-  lcs_print_rec (b, x, i, j);
-  printf("\n");
-}
-
-void lcs_print_rec (gint **b, gchar *x, gint i, gint j) {
-  if (!i || !j) return;
-  if (b[i][j] == 1) {
-    lcs_print_rec(b, x, i-1, j-1);
-    printf("%c", x[i-1]);
-  }
-  else if (b[i][j] == 2)
-    lcs_print_rec(b, x, i-1, j);
-  else
-    lcs_print_rec(b, x, i, j-1);
 }
 
 GList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j) {
@@ -156,18 +120,34 @@ GList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j) {
       res = g_list_append(res, g_strdup_printf("%s%c", tmp_iter->data, x[i-1]));
       tmp_iter = tmp_iter->next;
     }
+
     return res;
   }
-  else {
-    if (c[i-1][j] >= c[i][j-1]) {
-      res = lcs_print_all(c, x, y, i-1, j);
-    }
-    
-    if (c[i][j-1] >= c[i-1][j]) {
-      tmp = lcs_print_all(c, x, y, i, j-1);
-    }
-    // merge two lists
-    res = g_list_concat(tmp, res);
+  if (c[i][j-1] >= c[i-1][j]) {
+    res = lcs_print_all(c, x, y, i, j-1);
   }
+    
+  if (c[i-1][j] >= c[i][j-1]) {
+    tmp = lcs_print_all(c, x, y, i-1, j);
+  }
+  // merge two lists and remove duplicates
+  res = g_list_concat(tmp, res);
+  res = g_list_remove_dupes (res);
+
   return res;
+}
+
+GList *g_list_remove_dupes (GList *lis) {
+  GList *a, *b, *dup;
+
+  for (a=lis; a; a = a->next)
+  {
+    for (b = a->next; b; b = b->next)
+    {
+      dup = b;
+      if (!g_strcmp0(a->data, dup->data))
+        lis = g_list_delete_link(lis, dup);
+    }
+  }
+  return lis;
 }
