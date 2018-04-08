@@ -5,7 +5,7 @@
     - input: two `\n` separated words
     - output: longest common subsequence
 2. **Example operation**  
-  `--- cormen/15-lcs ‹master* M?› » ./1-lcs`  
+  `» ./1-lcs`  
   `abrakadabra`  
   `yabbadabbadoo`  
   `abadaba`  
