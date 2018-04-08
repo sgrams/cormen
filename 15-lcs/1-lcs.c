@@ -1,4 +1,4 @@
-/* AL2.2.1, Stanisław Juliusz Grams (251000 UG MFI), 20180320
+/* AL2.2.1, Stanisław Juliusz Grams, 20180320
  *
  * 1. USAGE
  *
