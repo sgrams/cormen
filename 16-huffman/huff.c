@@ -6,7 +6,6 @@
  */
 
 #include "huff.h"
-#include <stdio.h>
 
 huff_t *
 huff_init  (gpointer *data, gsize size, gsize uniq_size) {

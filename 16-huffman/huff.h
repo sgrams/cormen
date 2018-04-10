@@ -7,6 +7,8 @@
 #ifndef HUFF_H_
 #define HUFF_H_
 #include <glib.h>
+#include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 typedef struct huff_tree_entry {
