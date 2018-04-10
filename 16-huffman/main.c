@@ -1,7 +1,7 @@
 /*
  *  1. USAGE
- *     Compile with command `gcc -o main main.c
- *     `pkg-config --cflags glib-2.0 --libs glib-2.0``
+ *     Compile with command `gcc -o main main.c huff.c
+ *     $(pkg-config --cflags glib-2.0 --libs glib-2.0)`
  *
  *     Syntax: "./main -i input.txt"
  *     Tested under kernel 4.15.7-1-ARCH and gcc 7.3.0
