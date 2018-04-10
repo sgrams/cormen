@@ -20,7 +20,7 @@
 
 #define defaultStringBuffer   1024
 #define defaultSyntax         "ok\n"
-#define defaultErrorSyntax    "zesrauosie\n"
+#define defaultErrorSyntax    "\n"
 
 gint main (gint argc, gchar *argv[]) {
   FILE *input_file = NULL;
@@ -36,7 +36,7 @@ gint main (gint argc, gchar *argv[]) {
   {
     switch (ch) {
       case 'i':
-        // Allocates memory and sets input filepath
+        // allocates memory and sets input filepath
         if (!optarg) {
           fprintf(stderr, defaultErrorSyntax
               "input filepath not specified\n program terminated\n", argv[0]);
@@ -57,7 +57,7 @@ gint main (gint argc, gchar *argv[]) {
     }
   }
 
-  /* Reading file and calculating quantity of every char */
+  // reading file and calculating quantity of every char
   if (!input_file) {
     printf (defaultSyntax, argv[0]);
     if (input_filepath)
@@ -65,14 +65,13 @@ gint main (gint argc, gchar *argv[]) {
     return EXIT_SUCCESS;
   }
 
-  printf("input_filepath=%s\n", input_filepath);
-  // initialize huff structure with NULL pointer to data and unique size of 0
-  huff = huff_init (NULL, 0);
+  // initialize huff structure with NULL pointer to data, size 0 and unique size of 0
+  huff = huff_init (NULL, 0, 0);
 
   for (gint n=0; (ch = fgetc (input_file)) && !feof (input_file);)
   {
     ++n;
-    huff_tree_append(huff, ch);
+    huff_append(huff, ch);
     huff->size = n;
   }
 
@@ -82,14 +81,12 @@ gint main (gint argc, gchar *argv[]) {
   }
   printf("\n");
 
-  huff_create_code(huff);
+  huff = huff_create_tree (huff);
+  huff = huff_create_code (huff);
   
-  /*for (huff_list_t *iter = huff->list; iter; iter=iter->next)
-  {
-    printf("xx%i\n", (iter->tree->entry->quantity));
-  }*/
-
-  printf("znakow ogolnie: %i\n", huff->size);
+  printf("size: %i\n", huff->size);
+  printf("uniq_size: %i\n", huff->uniq_size);
+  printf("heap: %i\n", huff->list->tree->entry->quantity);
   
   huff_close(huff);
   if (input_file)
