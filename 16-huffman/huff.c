@@ -278,5 +278,7 @@ huff_print_dict (huff_t *huff) {
   printf("====================================================================\n");
   // prints size in bits...
   printf("  before coding:  %i bits\n", (gint)huff->size*8);
-  printf("   after coding:  %i bits\n", huff_length);
+  printf("   after coding:  %i bits\n\n", huff_length);
+  printf("compress. ratio:  %.2lf\n", (gdouble)(huff->size*8.0)/(gdouble)(huff_length));
+  printf("  space savings:  %.2lf\%\n", ((gdouble) 1.0 - ((gdouble)(huff_length)/(gdouble)(huff->size*8.0)))*100.0);
 }

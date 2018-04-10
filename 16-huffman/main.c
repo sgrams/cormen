@@ -76,6 +76,14 @@ gint main (gint argc, gchar *argv[]) {
     huff->size = n;
   }
 
+  if (huff->size <= 2) {
+    fprintf(stderr, DEFAULT_ERROR_SYNTAX
+    "file contains less than three bytes\nprogram terminated\n", argv[0]);
+    huff_close(huff);
+    fclose(input_file);
+    g_free(input_filepath);
+    return EXIT_FAILURE;
+  }
   // create Huffman's tree and code
   huff = huff_create_tree (huff);
   huff = huff_create_code (huff);
