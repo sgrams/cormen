@@ -4,7 +4,6 @@
  *  huff.c
  *  Stanisław J. Grams
  */
-
 #include "huff.h"
 
 huff_t *

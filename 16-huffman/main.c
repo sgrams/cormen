@@ -11,17 +11,14 @@
  *  main.c
  *  Stanisław J. Grams
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <glib.h>
-
 #include "huff.h"
 
 #define DEFAULT_SYNTAX          "Syntax: %s -i input.txt\n"
 #define DEFAULT_ERROR_SYNTAX    "%s: \033[31mfatal error:\033[0m "
-
 gint main (gint argc, gchar *argv[]) {
   FILE *input_file  = NULL;
   //FILE *output_file = NULL;
