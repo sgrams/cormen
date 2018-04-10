@@ -1,14 +1,15 @@
-/* AL2.3.1, Stanisław Juliusz Grams (251000 UG MFI), 20180406
+/*
+ *  1. USAGE
+ *     Compile with command `gcc -o main main.c
+ *     `pkg-config --cflags glib-2.0 --libs glib-2.0``
  *
- * 1. USAGE
- *
- *   Compile with command `gcc -o enco enco.c
- *   `pkg-config --cflags glib-2.0 --libs glib-2.0`
- *
- *   Syntax: "./enco -i input.txt"
- *
- *   Tested under kernel 4.15.7-1-ARCH and gcc 7.3.0
- *
+ *     Syntax: "./main -i input.txt"
+ *     Tested under kernel 4.15.7-1-ARCH and gcc 7.3.0
+ * 
+ *  This is part of 16-huffman task.
+ * 
+ *  main.c
+ *  Stanisław J. Grams
  */
 
 #include <stdio.h>
@@ -18,26 +19,27 @@
 
 #include "huff.h"
 
-#define DEFAULT_SYNTAX          "Syntax: ./enco -i input.txt\n"
+#define DEFAULT_SYNTAX          "Syntax: ./main -i input.txt\n"
 #define DEFAULT_ERROR_SYNTAX    "%s: \033[31mfatal error:\033[0m "
 
 gint main (gint argc, gchar *argv[]) {
-  FILE *input_file = NULL;
+  FILE *input_file  = NULL;
   FILE *output_file = NULL;
 
-  gchar *input_filepath = NULL;
+  gchar *input_filepath  = NULL;
   gchar *output_filepath = NULL;
-  gchar  ch;
+  gchar  getopt_input;
 
-  guchar buf;
+  guchar buff;
 
   huff_t *huff = NULL;
 
-  while ((ch = getopt(argc, argv, "i:")) != -1)
+  while ((getopt_input = getopt(argc, argv, "i:")) != -1)
   {
-    switch (ch) {
+    switch (getopt_input) {
       case 'i':
         // allocates memory and sets input filepath
+        // case 1: optarg empty
         if (!optarg) {
           fprintf(stderr, DEFAULT_ERROR_SYNTAX
               "input filepath not specified\nprogram terminated\n", argv[0]);
@@ -45,6 +47,7 @@ gint main (gint argc, gchar *argv[]) {
         }
         input_filepath = g_strdup(optarg);
         input_file = fopen((const gchar *) input_filepath, "rb");
+        // case 2: optarg specified but unable to open file
         if (!input_file) {
           fprintf(stderr, DEFAULT_ERROR_SYNTAX
               "input filepath does not exist!\nprogram terminated\n", argv[0]);
@@ -69,10 +72,10 @@ gint main (gint argc, gchar *argv[]) {
   // initialize huff structure with NULL pointer to data, size 0 and unique size of 0
   huff = huff_init (NULL, 0, 0);
 
-  for (gint n=0; fread(&buf, sizeof(guchar), 1, input_file) && !feof(input_file);)
+  for (gint n=1; fread(&buff, sizeof(guchar), 1, input_file) && !feof(input_file);n++)
   {
-    ++n;
-    huff_append(huff, buf);
+    // let's insert another byte into tree
+    huff_append(huff, buff);
     huff->size = n;
   }
 
@@ -88,5 +91,5 @@ gint main (gint argc, gchar *argv[]) {
   fclose(input_file);
   g_free(input_filepath);
 
-  return 0;
+  return EXIT_SUCCESS;
 }

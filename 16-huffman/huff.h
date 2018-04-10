@@ -1,3 +1,9 @@
+/*
+ *  This is part of 16-huffman task.
+ * 
+ *  huff.h
+ *  Stanisław J. Grams
+ */
 #ifndef HUFF_H_
 #define HUFF_H_
 #include <glib.h>

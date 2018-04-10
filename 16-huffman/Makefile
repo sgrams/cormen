@@ -1,7 +1,9 @@
-#
-# Makefile for building 16-huffman program
-# Stanisław J. Grams
-#
+ ## 
+ #  This is part of 16-huffman task.
+ # 
+ #  Makefile
+ #  Stanisław J. Grams
+ ##
 
 CC=gcc 
 CFLAGS=$(shell pkg-config --cflags glib-2.0)

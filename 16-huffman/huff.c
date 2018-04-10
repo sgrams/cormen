@@ -1,3 +1,10 @@
+/*
+ *  This is part of 16-huffman task.
+ * 
+ *  huff.c
+ *  Stanisław J. Grams
+ */
+
 #include "huff.h"
 #include <stdio.h>
 
