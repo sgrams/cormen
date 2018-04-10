@@ -82,8 +82,6 @@ huff_tree_check (huff_t *file, guchar ch) {
 
 huff_t *
 huff_create_tree (huff_t *file) {
-  huff_list_t *res_list;
-  huff_list_t *itr_list;
   huff_list_t *node = NULL;
   huff_list_t *min  = NULL;
   huff_tree_t *tree = NULL;
@@ -142,7 +140,6 @@ huff_list_extract_min (huff_t *file) {
   huff_list_t *list = file->list;
   huff_list_t *iter = list;
   huff_list_t *min  = iter;
-  huff_list_t *tmp  = NULL;
 
   // iterate through whole list to find minimal element
   while (iter)
@@ -157,7 +154,6 @@ huff_list_extract_min (huff_t *file) {
    * un-link minimal element
    * in case it was first element list must point to next element
    */
-  tmp = min;
   
   if (!list || !min) {
     return NULL;
@@ -206,13 +202,13 @@ huff_close (huff_t *file) {
 huff_list_t *
 huff_list_append (huff_t *file, huff_list_t *node) {
   // appends new element to existing list
-  huff_list_t *main = file->list;
+  huff_list_t *huff = file->list;
   file->list = node;
 
-  node->next = main;
+  node->next = huff;
   node->prev = NULL;
-  if (main) {
-    main->prev = node;
+  if (huff) {
+    huff->prev = node;
   }
   // return new node (and list at the same time)
   return node;
@@ -232,15 +228,15 @@ huff_tree_traverse (huff_tree_t *node) {
   {
     if (node == node->pa->le) {
       if (node->pa->entry->code)
-        node->entry->code = g_strdup_printf("%s0", node->pa->entry->code);
+        node->entry->code = (guchar *) g_strdup_printf("%s0", node->pa->entry->code);
       else
-        node->entry->code = g_strdup_printf("0", node->pa->entry->code);
+        node->entry->code = (guchar *) g_strdup("0");
     }
     if (node == node->pa->ri) {
       if (node->pa->entry->code)
-        node->entry->code = g_strdup_printf("%s1", node->pa->entry->code);
+        node->entry->code = (guchar *) g_strdup_printf("%s1", node->pa->entry->code);
       else
-        node->entry->code = g_strdup_printf("1", node->pa->entry->code);
+        node->entry->code = (guchar *) g_strdup("1");
     }
   }
   huff_tree_traverse (node->le);
@@ -256,14 +252,14 @@ huff_tree_traverse_print (huff_tree_t *node) {
   if (node->entry && node->entry->uniq_byte) {
     if (*node->entry->uniq_byte >= 0x21 && *node->entry->uniq_byte <= 0x7E)
       printf("|      %4c      |    %8i    |        %16s        |\n",
-      *node->entry->uniq_byte, node->entry->quantity, node->entry->code);
+      *node->entry->uniq_byte, (gint) node->entry->quantity, node->entry->code);
     else if (*node->entry->uniq_byte == 0x20)
       printf("|      space     |    %8i    |        %16s        |\n",
-      node->entry->quantity, node->entry->code);
+      (gint) node->entry->quantity, node->entry->code);
     else
       printf("|      0x%.2x      |    %8i    |        %16s        |\n",
-      *node->entry->uniq_byte, node->entry->quantity, node->entry->code);
-    huff_length += (node->entry->quantity) * (gint)strlen(node->entry->code);
+      *node->entry->uniq_byte, (gint) node->entry->quantity, node->entry->code);
+    huff_length += (node->entry->quantity) * (gint)strlen((gchar *)node->entry->code);
   }
 
   huff_tree_traverse_print (node->le);
@@ -283,6 +279,6 @@ huff_print_dict (huff_t *huff) {
   huff_length = huff_tree_traverse_print (huff->list->tree);
   printf("====================================================================\n");
   // prints size in bits...
-  printf("  before coding:  %i bits\n", huff->size*8);
+  printf("  before coding:  %i bits\n", (gint)huff->size*8);
   printf("   after coding:  %i bits\n", huff_length);
 }

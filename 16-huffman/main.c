@@ -19,15 +19,15 @@
 
 #include "huff.h"
 
-#define DEFAULT_SYNTAX          "Syntax: ./main -i input.txt\n"
+#define DEFAULT_SYNTAX          "Syntax: %s -i input.txt\n"
 #define DEFAULT_ERROR_SYNTAX    "%s: \033[31mfatal error:\033[0m "
 
 gint main (gint argc, gchar *argv[]) {
   FILE *input_file  = NULL;
-  FILE *output_file = NULL;
+  //FILE *output_file = NULL;
 
   gchar *input_filepath  = NULL;
-  gchar *output_filepath = NULL;
+  //gchar *output_filepath = NULL;
   gchar  getopt_input;
 
   guchar buff;
