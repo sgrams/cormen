@@ -181,17 +181,11 @@ huff_list_extract_min (huff_t *file) {
 
 void
 huff_close (huff_t *file) {
-  /*
-   * THIS FUNCTION NEEDS EDIT
-   * THE ELEMENTS IN THE TREE STILL NEED
-   * DEALLOCATING!!!
-   * `valgrind --leak-check=full -v`
-   * will throw errors!
-   */
-
+  // traverses tree and closes its nodes
   huff_close_tree(file->list->tree);
-
+  // closes final element of a list
   g_free(file->list);
+  // closes huff_t file
   g_free(file);
 }
 
