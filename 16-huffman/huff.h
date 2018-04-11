@@ -75,5 +75,8 @@ huff_print_dict (huff_t *huff);
 // closes huff file and frees memory
 void
 huff_close                (huff_t *file);
+// deallocates nodes in huff tree
+void
+huff_close_tree           (huff_tree_t *node);
 
 #endif

@@ -8,7 +8,7 @@
 
 huff_t *
 huff_init  (gpointer *data, gsize size, gsize uniq_size) {
-  huff_t *file = g_malloc0(sizeof(huff_t));
+  huff_t *file = g_malloc0 (sizeof(huff_t));
   file->data = data;
   file->size = size;
   file->uniq_size = uniq_size;
@@ -26,21 +26,21 @@ huff_append  (huff_t *file, guchar ch) {
   // increment unique_size
   file->uniq_size++;
   // declare new tree entry with given byte (guchar) inside huff file
-  huff_tree_entry_t *tree_entry = g_malloc0(sizeof(huff_tree_entry_t));
-  tree_entry->uniq_byte = g_malloc0(sizeof(guchar));
-  *tree_entry->uniq_byte = ch; 
-  tree_entry->code = NULL;
-  tree_entry->quantity  = 1;
+  huff_tree_entry_t *tree_entry = g_malloc0 (sizeof(huff_tree_entry_t));
+  tree_entry->uniq_byte   = g_malloc0 (sizeof(guchar));
+  *tree_entry->uniq_byte  = ch; 
+  tree_entry->quantity    = 1;
+  tree_entry->code        = NULL;
 
   // declare new tree with given tree entry
-  huff_tree_t *tree = g_malloc0(1*sizeof(huff_tree_t));
+  huff_tree_t *tree = g_malloc0 (sizeof(huff_tree_t));
   tree->entry = tree_entry;
-  tree->le = NULL;
-  tree->ri = NULL;
-  tree->pa = NULL;
+  tree->le    = NULL;
+  tree->ri    = NULL;
+  tree->pa    = NULL;
 
   // declare new list node with given tree
-  huff_list_t *new_node = g_malloc0(1*sizeof(huff_list_t));
+  huff_list_t *new_node = g_malloc0 (sizeof(huff_list_t));
   new_node->tree = tree;
   huff_list_t *iter = file->list;
 
@@ -80,9 +80,9 @@ huff_tree_check (huff_t *file, guchar ch) {
 
 huff_t *
 huff_create_tree (huff_t *file) {
-  huff_list_t *node = NULL;
-  huff_list_t *min  = NULL;
-  huff_tree_t *tree = NULL;
+  huff_list_t *element = NULL;
+  huff_list_t *min     = NULL;
+  huff_tree_t *tree    = NULL;
 
   huff_tree_entry_t *entry = NULL;
 
@@ -96,18 +96,19 @@ huff_create_tree (huff_t *file) {
    */
   for (i=1; i<n && n>2; i++)
   {
-    node  = g_malloc0 (sizeof(huff_list_t));
-    tree  = g_malloc0 (sizeof(huff_tree_t));
-    entry = g_malloc0 (sizeof(huff_tree_entry_t));
+    element = g_malloc0 (sizeof(huff_list_t));
+    tree    = g_malloc0 (sizeof(huff_tree_t));
+    entry   = g_malloc0 (sizeof(huff_tree_entry_t));
 
     // find two minimums in the list and join them together under new tree
-    min = huff_list_extract_min(file);
+    min = huff_list_extract_min (file);
     if (min) {
       tree->le = min->tree;
       min->tree->pa = tree->le;
       tree->le->pa = tree;
     }
-    min = huff_list_extract_min(file);
+    g_free(min);
+    min = huff_list_extract_min (file);
     if (min) {
       tree->ri = min->tree;
       min->tree->pa = tree->ri;
@@ -115,6 +116,7 @@ huff_create_tree (huff_t *file) {
     } else {
       break;
     }
+    g_free(min);
 
     tree->pa = NULL;
 
@@ -125,8 +127,8 @@ huff_create_tree (huff_t *file) {
     tree->entry->quantity  = (tree->le->entry->quantity) + (tree->ri->entry->quantity);
 
     // append new element of list to main list
-    node->tree = tree;
-    file->list = huff_list_append (file, node);
+    element->tree = tree;
+    file->list = huff_list_append (file, element);
   }
 
   // returning huff file with header created in the first element of list
@@ -186,15 +188,30 @@ huff_close (huff_t *file) {
    * `valgrind --leak-check=full -v`
    * will throw errors!
    */
-  huff_list_t *iter = file->list;
-  while (iter && iter->next)
-  {
-    g_free(iter->tree->entry);
-    g_free(iter->tree);
-    iter = iter->next;
-  }
+
+  huff_close_tree(file->list->tree);
+
   g_free(file->list);
   g_free(file);
+}
+
+void
+huff_close_tree (huff_tree_t *node) {
+  if(node->le)
+    huff_close_tree(node->le);
+  if(node->ri)
+    huff_close_tree(node->ri);
+
+  if (node->entry)
+  {
+    if (node->entry->code)
+      g_free (node->entry->code);
+    if (node->entry->uniq_byte)
+      g_free (node->entry->uniq_byte);
+    g_free (node->entry);
+  }
+
+  g_free (node);
 }
 
 huff_list_t *
@@ -280,5 +297,5 @@ huff_print_dict (huff_t *huff) {
   printf("  before coding:  %i bits\n", (gint)huff->size*8);
   printf("   after coding:  %i bits\n\n", huff_length);
   printf("compress. ratio:  %.2lf\n", (gdouble)(huff->size*8.0)/(gdouble)(huff_length));
-  printf("  space savings:  %.2lf\%\n", ((gdouble) 1.0 - ((gdouble)(huff_length)/(gdouble)(huff->size*8.0)))*100.0);
+  printf("  space savings:  %.2lf%%\n", ((gdouble) 1.0 - ((gdouble)(huff_length)/(gdouble)(huff->size*8.0)))*100.0);
 }
