@@ -1,5 +1,5 @@
  ## 
- #  This is part of 16-huffman task.
+ #  This file is a part of 16-huffman task.
  # 
  #  Makefile
  #  Stanisław J. Grams
@@ -16,3 +16,5 @@ clean:
 	rm -f main main.o huff.o
 run: main
 	./main
+rmobj:
+	rm -f main.o huff.o
