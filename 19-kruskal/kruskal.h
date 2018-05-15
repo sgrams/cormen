@@ -25,7 +25,9 @@ class DisjointSet {
     gint32 FindSet (gint32 u);
     void   Union   (gint32 a, gint32 b);
     void   Link    (gint32 a, gint32 b);
-    void   Destroy ();
+    
+    // destructor
+    ~DisjointSet ();
 };
 
 class Graph {

@@ -11,6 +11,11 @@ DisjointSet::DisjointSet (gint32 x) {
   }
 }
 
+DisjointSet::~DisjointSet() {
+  delete[] this->pa;
+  delete[] this->rank;
+}
+
 gint32
 DisjointSet::FindSet (gint32 u) {
   if (u != pa[u]) {
@@ -37,12 +42,6 @@ void
 DisjointSet::Union (gint32 a, gint32 b) {
   DisjointSet::Link (FindSet (a), FindSet(b));
 };
-
-void
-DisjointSet::Destroy() {
-  delete[] this->pa;
-  delete[] this->rank;
-}
 
 Graph::Graph (gint32 V, gint32 E) {
   this->V = V;
@@ -82,6 +81,5 @@ Graph::FindKruskalMST () {
     }
   }
 
-  ds.Destroy();
   return A;
 };
