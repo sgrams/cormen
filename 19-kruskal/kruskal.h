@@ -1,3 +1,10 @@
+/*
+ *  This file is a part of 19-kruskal task.
+ * 
+ *  kruskal.h
+ *  Stanisław J. Grams
+ */
+
 #ifndef KRUSKAL_H_
 #define KRUSKAL_H_
 

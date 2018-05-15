@@ -1,3 +1,17 @@
+/*
+ *  1. USAGE
+ *     Compile with command `g++ -o main main.cc kruskal.cc
+ *     $(pkg-config --cflags glib-2.0 --libs glib-2.0)`
+ *
+ *     Syntax: "./main <example.txt>"
+ *     Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0
+ * 
+ *  This file is a part of 19-kruskal task.
+ * 
+ *  main.cc
+ *  Stanisław J. Grams
+ */
+
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -76,7 +90,7 @@ gint32 main (gint argc, gchar *argv[]) {
   printf ("}\n");
   
   g_free (input_name);
-  
+
   if (input_file)
     fclose (input_file);
   return EXIT_SUCCESS;

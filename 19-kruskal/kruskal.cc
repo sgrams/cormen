@@ -1,3 +1,10 @@
+/*
+ *  This file is a part of 19-kruskal task.
+ * 
+ *  kruskal.cc
+ *  Stanisław J. Grams
+ */
+
 #include "kruskal.h"
 DisjointSet::DisjointSet (gint32 x) {
   this->x    = x;
