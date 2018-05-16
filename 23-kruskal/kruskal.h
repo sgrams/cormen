@@ -59,6 +59,7 @@ class Graph {
     gint32 V;
     gint32 E;
     vector < pair<gint32, pair<gint32, gint32>> > edges;
+    vector < pair<gint32, pair<gint32, gint32>> > kruskal;
 
   public:
     // constructor
@@ -66,12 +67,15 @@ class Graph {
 
     // methods
     void   AddEdge (gint32 u, gint32 v, gint32 w);
+    void   AddKruskal (gint32 u, gint32 v, gint32 w);
     
     gint32 getVerticesNumber();
     gint32 getEdgesNumber();
 
     vector <pair<gint32, pair<gint32, gint32>>>
     getEdges();
+    vector <pair<gint32, pair<gint32, gint32>>>
+    getKruskals();
 
     gint32 FindKruskalMST ();
     void   Set (gint32 V, gint32 E);

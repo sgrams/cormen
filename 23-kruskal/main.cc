@@ -68,24 +68,32 @@ gint32 main (gint argc, gchar *argv[]) {
 
     // create graph and proceed with adding edges from file
     fscanf (input_file, "%i;%i\n", &V, &E);
-    printf ("G(%i, %i, w) = \n{\n", V, E);
     G.Set  (V, E);
 
     for (gint32 i=1; i <= E; i++)
     {
       gint32 u=0, v=0, w=0;
       fscanf (input_file, "%i;%i;%i\n", &u, &v, &w);
-      printf ("  [%i - %i] (%i)\n", u, v, w);
       G.AddEdge (u, v, w);
     }
-    printf("}\n");
   }
 
   // output the data
-  printf ("\nMST(G) = \n{\n");
   G.FindKruskalMST ();
-  printf ("}\n");
+  printf ("%i;%i\n", (gint32) G.getVerticesNumber(), (gint32) G.getKruskals().size()-1);
   
+  // iterate over all kruskal edges
+  vector<pair<gint32, pair<gint32, gint32>>>::iterator iter;
+  for (iter = G.getKruskals ().begin ()+1; iter != G.getKruskals ().end (); iter++)
+  {
+    gint32 w = iter->first;
+    gint32 u = iter->second.first;
+    gint32 v = iter->second.second;
+
+    printf ("%i;%i;%i\n", u, v, w);
+  }
+
+  // free memory
   g_free (input_name);
 
   if (input_file)

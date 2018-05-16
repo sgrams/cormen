@@ -119,6 +119,11 @@ Graph::AddEdge (gint32 u, gint32 v, gint32 w) {
 }
 
 void
+Graph::AddKruskal (gint32 u, gint32 v, gint32 w) {
+  kruskal.push_back ({w, {u, v}});
+}
+
+void
 Graph::Set (gint32 V, gint32 E) {
   this->V = V;
   this->E = E;
@@ -139,15 +144,22 @@ Graph::getEdges () {
   return edges;
 }
 
+vector <pair<gint32, pair<gint32, gint32>>>
+Graph::getKruskals () {
+  return kruskal;
+}
+
 gint32
 Graph::FindKruskalMST () {
   gint32 A = 0;
   sort (edges.begin (), edges.end ());
   DisjointSet ds (this->getVerticesNumber ());
+  AddKruskal(0,0,0); // initialise vector
 
   vector<pair<gint32, pair<gint32, gint32>>>::iterator iter;
-  for (iter=edges.begin (); iter!=edges.end (); iter++)
+  for (iter = edges.begin (); iter != edges.end (); iter++)
   {
+    gint32 w = iter->first;
     gint32 u = iter->second.first;
     gint32 v = iter->second.second;
     
@@ -155,11 +167,11 @@ Graph::FindKruskalMST () {
     Node *v_pa = ds.FindSet (ds.getNode (v));
     
     if (u_pa != v_pa) {
-      printf ("  [%i – %i]\n", u, v);
+      AddKruskal (u, v, w);
       A += iter->first;
       ds.Union (u_pa, v_pa);
     }
   }
-
+  sort (kruskal.begin (), kruskal.end ());
   return A;
 }
