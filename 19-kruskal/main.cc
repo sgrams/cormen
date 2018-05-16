@@ -20,9 +20,6 @@
 #include "kruskal.h"
 
 #define  DEFAULT_ERROR_SYNTAX "%s: Error occured!\nProgram terminated.\n"
-#define  DEFAULT_SYNTAX       "Syntax: %s <input_file>\n"
-
-using namespace std;
 
 gint32 main (gint argc, gchar *argv[]) {
   gint32 V = 0;
