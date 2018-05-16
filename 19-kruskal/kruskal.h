@@ -18,23 +18,40 @@
 
 using namespace std;
 
+class Node {
+  private:
+    int  val;
+    int  rank;
+    Node *pa;
+  
+  public:
+    Node ();
+    Node (gint32 val);
+
+    gint32 getValue ();
+    void   setValue (gint32 val);
+
+    gint32 getRank ();
+    void   setRank (gint32 rank);
+    void   incRank ();
+
+    Node  *getParent ();
+    void   setParent (Node *pa);
+};
+
 class DisjointSet {
   private:
-    gint32 *pa;
-    gint32 *rank;
-    gint32  x;
-
+    vector<Node*> nodeSet;
   public:
-    // constructor
-    DisjointSet (gint32 x);
-
+    DisjointSet(gint32 V);
     // methods
-    gint32 FindSet (gint32 u);
-    void   Union   (gint32 a, gint32 b);
-    void   Link    (gint32 a, gint32 b);
-    
-    // destructor
-    ~DisjointSet ();
+    Node   *FindSet (Node *x);
+    Node   *MakeSet (gint32 x);
+    void    Union   (Node *a, Node *b);
+    void    Link    (Node *a, Node *b);
+    Node   *getNode (gint32 i);
+    vector<Node*> getNodeSet ();
+   ~DisjointSet();
 };
 
 class Graph {
@@ -48,8 +65,15 @@ class Graph {
     Graph (gint32 V, gint32 E);
 
     // methods
-    gint32 FindKruskalMST ();
     void   AddEdge (gint32 u, gint32 v, gint32 w);
+    
+    gint32 getVerticesNumber();
+    gint32 getEdgesNumber();
+
+    vector <pair<gint32, pair<gint32, gint32>>>
+    getEdges();
+
+    gint32 FindKruskalMST ();
     void   Set (gint32 V, gint32 E);
 };
 
