@@ -1,6 +1,6 @@
 #!/usr/bin/python
 """
-  This file is part of 19-kruskal task.
+  This file is part of 23-kruskal task.
 
   grapher.py
   
