@@ -1,7 +1,11 @@
 # Kruskal's Minimum Spanning Tree
-Dependencies:
+Main dependencies:
 1. `glib-2.0`
-2. `python` (only for grapher.py)
+
+Dependencies for drawing graphs:
+1. `python`
+2. `graphviz`
+3. `pygraphviz`
 
 Compile with command \
 `make`
