@@ -6,7 +6,7 @@ Compile with command \
 `make`
 
 Syntax \
-`./main` \
+`./main`
 
 ---
 Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0.
