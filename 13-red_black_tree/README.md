@@ -14,6 +14,10 @@ Syntax \
 ![Example output](https://raw.githubusercontent.com/sgrams/cormen/master/13-red_black_tree/tree.svg?sanitize=true)
 
 ---
+## **To-do**
+  1. Separate tree functions into new files
+  2. Fix removing nodes
+---
 Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0.
 
 \
