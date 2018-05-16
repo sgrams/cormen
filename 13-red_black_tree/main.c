@@ -4,10 +4,10 @@
  * 
  *   Install following packages:
  *     - graphviz
- *   Compile with command `gcc -o 1-tree 1-tree.c
+ *   Compile with command `gcc -o main main.c
  *   `pkg-config --cflags glib-2.0 --libs glib-2.0`
  *
- *   Syntax: "./1-tree -i keys.txt [-d (display tree) -p (print tree in-order) -r (remove elements)]"
+ *   Syntax: "./main -i keys.txt [-d (display tree) -p (print tree in-order) -r (remove elements)]"
  *
  *   Tested under kernel 4.14.11-1-ARCH and gcc 7.2.1
  *
