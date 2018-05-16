@@ -1,4 +1,12 @@
+/*
+ *  This file is a part of 18-btree task.
+ * 
+ *  btree.cc
+ *  Stanisław J. Grams
+ */
+
 #include "btree.h"
+
 btree_t *
 btree_create (btree_t *tree) {
   btree_t *node;

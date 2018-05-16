@@ -1,5 +1,5 @@
 /*
- *  This file is a part of 19-kruskal task.
+ *  This file is a part of 23-kruskal task.
  * 
  *  kruskal.cc
  *  Stanisław J. Grams

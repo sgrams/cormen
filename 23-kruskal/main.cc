@@ -6,7 +6,7 @@
  *     Syntax: "./main <example.txt>"
  *     Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0
  * 
- *  This file is a part of 19-kruskal task.
+ *  This file is a part of 23-kruskal task.
  * 
  *  main.cc
  *  Stanisław J. Grams

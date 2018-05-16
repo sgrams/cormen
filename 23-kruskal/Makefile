@@ -1,5 +1,5 @@
  ## 
- #  This file is a part of 19-kruskal task.
+ #  This file is a part of 23-kruskal task.
  # 
  #  Makefile
  #  Stanisław J. Grams
