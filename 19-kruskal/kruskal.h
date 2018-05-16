@@ -41,7 +41,7 @@ class Graph {
   private:
     gint32 V;
     gint32 E;
-    std::vector < pair<gint32, pair<gint32, gint32>> > edges;
+    vector < pair<gint32, pair<gint32, gint32>> > edges;
 
   public:
     // constructor

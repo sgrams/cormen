@@ -6,6 +6,7 @@
  */
 
 #include "kruskal.h"
+
 DisjointSet::DisjointSet (gint32 x) {
   this->x    = x;
   this->pa   = new gint32[x+1];
@@ -48,7 +49,7 @@ DisjointSet::Link (gint32 a, gint32 b) {
 void
 DisjointSet::Union (gint32 a, gint32 b) {
   DisjointSet::Link (FindSet (a), FindSet(b));
-};
+}
 
 Graph::Graph (gint32 V, gint32 E) {
   this->V = V;
@@ -89,4 +90,4 @@ Graph::FindKruskalMST () {
   }
 
   return A;
-};
+}
