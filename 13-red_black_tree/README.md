@@ -19,7 +19,6 @@ Syntax \
   2. Fix removing nodes
 ---
 Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0.
-
 \
 This file is a part of 13-red_black_tree task.
 

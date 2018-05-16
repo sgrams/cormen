@@ -53,8 +53,8 @@ Syntax \
 - *AES encryption*
 ---
 ## **Info** 
-Tested under kernel 4.16.8-1-ARCH and gcc 8.1.0.
-
+Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0.
+\
 This file is a part of 16-huffman task.
 
 README.md\
