@@ -17,7 +17,6 @@
 #include <unistd.h>
 
 #include "graph.h"
-#include "util.h"
 
 #define DEFAULT_SYNTAX       "Syntax: %s -i <input_file> -p [prints graph] -d [prints graph in DFS order]\n"
 #define DEFAULT_ERROR_SYNTAX "%s: \033[31mfatal error:\033[0m "

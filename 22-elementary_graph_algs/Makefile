@@ -9,10 +9,9 @@ CC=g++
 CXXFLAGS=$(shell pkg-config --cflags glib-2.0) -Wall -Werror
 LDFLAGS=$(shell pkg-config --libs glib-2.0)
 
-main:	main.o graph.o util.o
+main:	main.o graph.o
 main.o:	main.cc
 graph.o: graph.cc
-util.o: util.cc
 
 clean: 
 	rm -f main main.o graph.o
