@@ -63,23 +63,33 @@ Graph::read_from_adj_matrix_file (ifstream& input_file) {
 
 void
 Graph::DFS () {
+  cout << "Graph vertices printed in DFS order:" << endl;
   for (const auto& u: vertices)
   {
     if (u.color == white) {
       DFS_visit (u.index);
+      cout << endl;
     }
   }
-  cout << endl;
+
+  cout << "Spanning edges created by passing the graph with DFS algorithm:" << endl;
+  for (const auto& u: vertices)
+  {
+    if (u.PI)
+      cout << u.PI->index << " -> " << u.index << endl;
+  }
 }
 
 void
 Graph::DFS_visit (gint32 u) {
   vertices[u].color = gray;
-  cout << vertices[u].index << " ";
+  cout << vertices[u].index;
 
   for (adj_node_t *iter = adjacencies[u].head; iter; iter=iter->next)
   {
     if (vertices[iter->value].color == white) {
+      cout <<  ", ";
+      vertices[iter->value].PI = &vertices[u];
       DFS_visit (iter->value);
     }
   }
@@ -88,6 +98,7 @@ Graph::DFS_visit (gint32 u) {
 
 void
 Graph::print () {
+  cout << "Graph printed in form of adjacency list:" << endl;
   for (const auto& v: vertices)
   {
     cout << v.index << ": ";

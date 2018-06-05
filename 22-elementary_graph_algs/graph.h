@@ -20,8 +20,10 @@ enum color_t {
 typedef struct vertex {
   gint32 index;
   color_t color;
+  vertex *PI;
   vertex (gint32 _index) : index (_index),
-                           color (color_t::white)
+                           color (color_t::white),
+                           PI (nullptr)
                            {}
 } vertex_t;
 
@@ -53,6 +55,7 @@ class Graph {
 
     void DFS ();
     void print ();
+    
   private:
     void DFS_visit (gint32 vertex);
 };

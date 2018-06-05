@@ -1,9 +1,8 @@
 /*
  *  1. USAGE
- *     Compile with command `g++ -o main main.cc kruskal.cc
- *     $(pkg-config --cflags glib-2.0 --libs glib-2.0)`
+ *     Compile with command `make`
  *
- *     Syntax: "./main <example.txt>"
+ *     Syntax: "./main -i <examples/example-1.txt> -p [prints graph] -d [prints graph in DFS order]"
  *     Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0
  * 
  *  This file is a part of 22-elementary_graph_algs task.
@@ -73,12 +72,10 @@ gint32 main (gint32 argc, gchar **argv) {
   G.read_from_adj_matrix_file (input_file);
 
   if (print_flag) {
-    cout << "Graph printed in form of adjacency list:" << endl;
     G.print ();
   }
   
   if (DFS_flag) {
-    cout << "Graph printed in DFS order:" << endl;
     G.DFS ();
   }
   
