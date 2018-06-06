@@ -23,16 +23,18 @@
 using namespace std;
 
 gint32 main (gint32 argc, gchar **argv) {
-  ifstream input_file;
+  ifstream  input_file;
+  ofstream output_file;
   gchar  getopt_input;
 
   gint32 vertices = 0;
 
-  bool print_flag = false;
-  bool   DFS_flag = false;
+  bool  print_flag = false;
+  bool output_flag = false;
+  bool    DFS_flag = false;
 
 
-  while ((getopt_input = getopt (argc, argv, "i:pd")) != -1)
+  while ((getopt_input = getopt (argc, argv, "i:pdo:")) != -1)
   {
     switch (getopt_input) {
       case 'i':
@@ -50,6 +52,14 @@ gint32 main (gint32 argc, gchar **argv) {
         break;
       case 'd':
         DFS_flag = true;
+        break;
+      case 'o':
+        output_file.open (optarg);
+        if (!output_file.is_open()) {
+          fprintf (stderr, DEFAULT_ERROR_SYNTAX "unable to open output file!\nProgram terminated\n", argv[0]);
+          return EXIT_FAILURE;
+        }
+        output_flag = true;
         break;
       default:
         return EXIT_FAILURE;
@@ -77,6 +87,14 @@ gint32 main (gint32 argc, gchar **argv) {
   
   if (DFS_flag) {
     G.DFS ();
+  }
+
+  if (output_flag) {
+    if (!output_file.is_open()) {
+      fprintf (stderr, DEFAULT_ERROR_SYNTAX "unable to open output file!\nProgram terminated\n", argv[0]);
+      return EXIT_FAILURE;
+    }
+    G.write_DFS_to_adj_matrix_file (output_file);
   }
   
   return EXIT_SUCCESS;

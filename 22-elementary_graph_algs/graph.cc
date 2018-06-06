@@ -47,17 +47,48 @@ Graph::add_edge (gint32 index, gint32 value) {
 void
 Graph::read_from_adj_matrix_file (ifstream& input_file) {
   gint32 V = (gint32) vertices.size();
-  gint32 temp = 0;
+  gint32 temp;
 
   for (gint32 i = 0; i < V; i++)
   {
     for (gint32 j = 0; j < V; j++)
     {
+      temp = 0;
       input_file >> temp;
       if (temp)
         add_edge (i, j);
     }
   }
+}
+
+void
+Graph::write_DFS_to_adj_matrix_file (ofstream& output_file) {
+  gint32 V = vertices.size ();
+  output_file << V << "\n";
+  bool set = false;
+  
+  for (gint32 i=0; i < V; i++)
+  {
+    for (gint32 j=0; j < V; j++)
+    {
+      set = false;
+      if (spanning_edges.find(i) != spanning_edges.end()) {
+        for (auto iter = spanning_edges.find(i)->second.begin(); iter != spanning_edges.find(i)->second.end(); iter++)
+        {
+          if (*iter == j)
+            set = true;
+        }
+      }
+      if (set) {
+        output_file << "1 ";
+      }
+      else {
+        output_file << "0 ";
+      }
+    }
+    output_file << "\n";
+  }
+
 }
 
 void
@@ -74,8 +105,10 @@ Graph::DFS () {
   cout << "Spanning edges created by passing the graph with DFS algorithm:" << endl;
   for (const auto& u: vertices)
   {
-    if (u.PI)
+    if (u.PI) {
       cout << u.PI->index << " -> " << u.index << endl;
+      spanning_edges[u.PI->index].push_back (u.index);
+    }
   }
 }
 

@@ -8,6 +8,7 @@
 #define  _GRAPH_H
 
 #include <glib.h>
+#include <algorithm>
 #include <vector>
 #include <unordered_map>
 #include <iostream>
@@ -51,6 +52,7 @@ class Graph {
   protected:
     vector <adj_list_t> adjacencies;
     vector <vertex_t> vertices;
+    unordered_map <int, vector<int> > spanning_edges;
 
   public:
     Graph (gint32 V);
@@ -58,6 +60,7 @@ class Graph {
     
     void add_edge (gint32 index, gint32 value);
     void read_from_adj_matrix_file (ifstream& input_file);
+    void write_DFS_to_adj_matrix_file (ofstream& output_file);
 
     void DFS ();
     void print ();
