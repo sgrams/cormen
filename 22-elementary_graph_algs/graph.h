@@ -1,3 +1,9 @@
+/*
+ *  This file is a part of 22-elementary_graph_algs task.
+ * 
+ *  graph.h
+ *  Stanisław J. Grams
+ */
 #ifndef  _GRAPH_H
 #define  _GRAPH_H
 

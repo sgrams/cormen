@@ -4,7 +4,6 @@
  *  graph.cc
  *  Stanisław J. Grams
  */
-
 #include "graph.h"
 
 Graph::Graph (gint32 V) {
