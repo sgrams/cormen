@@ -1,0 +1,19 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+defaultArraySize	quicksort.c	/^#define defaultArraySize /;"	d	file:
+defaultOutputFileName	quicksort.c	/^#define defaultOutputFileName /;"	d	file:
+defaultSortConst	quicksort.c	/^#define defaultSortConst /;"	d	file:
+defaultSortMode	quicksort.c	/^#define defaultSortMode /;"	d	file:
+defaultTestMode	quicksort.c	/^#define defaultTestMode /;"	d	file:
+exchange	quicksort.c	/^void exchange (int *A, int a, int b) {$/;"	f	typeref:typename:void
+insert_sort	quicksort.c	/^void insert_sort (int *A, int r) {$/;"	f	typeref:typename:void
+main	quicksort.c	/^int main (int argc, char **argv) {$/;"	f	typeref:typename:int
+partition	quicksort.c	/^int partition (int *A, int p, int r) {$/;"	f	typeref:typename:int
+quick_sort	quicksort.c	/^void quick_sort (int *A, int p, int r) {$/;"	f	typeref:typename:void
+quick_sort_mod	quicksort.c	/^void quick_sort_mod (int *A, int p, int r, int c) {$/;"	f	typeref:typename:void
+verbose_flag	quicksort.c	/^int verbose_flag = 0;$/;"	v	typeref:typename:int

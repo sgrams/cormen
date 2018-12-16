@@ -1,0 +1,39 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+data	list.c	/^  gchar  *data;$/;"	m	struct:node_t	typeref:typename:gchar *	file:
+defaultErrorSyntax	list.c	/^#define defaultErrorSyntax /;"	d	file:
+defaultStringBuffer	list.c	/^#define defaultStringBuffer /;"	d	file:
+defaultSyntax	list.c	/^#define defaultSyntax /;"	d	file:
+list	list.c	/^} list;$/;"	t	typeref:struct:list_t	file:
+list_clear	list.c	/^void list_clear (list *L)$/;"	f	typeref:typename:void
+list_clone	list.c	/^list *list_clone (list *list_1)$/;"	f	typeref:typename:list *
+list_concat	list.c	/^list *list_concat (list *list_1, list *list_2)$/;"	f	typeref:typename:list *
+list_duplicate_unique	list.c	/^list *list_duplicate_unique (list *L)$/;"	f	typeref:typename:list *
+list_find	list.c	/^node *list_find (list *L, gchar *data)$/;"	f	typeref:typename:node *
+list_get_beg	list.c	/^node *list_get_beg (list *L)$/;"	f	typeref:typename:node *
+list_get_end	list.c	/^node *list_get_end (list *L)$/;"	f	typeref:typename:node *
+list_init	list.c	/^void list_init (list *L)$/;"	f	typeref:typename:void
+list_insert_beg	list.c	/^void list_insert_beg (list *L, gchar *data)$/;"	f	typeref:typename:void
+list_insert_end	list.c	/^void list_insert_end (list *L, gchar *data)$/;"	f	typeref:typename:void
+list_insert_node	list.c	/^void list_insert_node (node *n, gchar *data)$/;"	f	typeref:typename:void
+list_merge	list.c	/^list *list_merge (list *list_1, list *list_2)$/;"	f	typeref:typename:list *
+list_print	list.c	/^void list_print (list *L)$/;"	f	typeref:typename:void
+list_remove	list.c	/^void list_remove (list *L)$/;"	f	typeref:typename:void
+list_remove_element	list.c	/^void list_remove_element (list *L, gchar *data)$/;"	f	typeref:typename:void
+list_remove_node	list.c	/^void list_remove_node (node *n)$/;"	f	typeref:typename:void
+list_t	list.c	/^typedef struct list_t {$/;"	s	file:
+main	list.c	/^gint main (gint argc, gchar *argv[])$/;"	f	typeref:typename:gint
+next	list.c	/^  struct node_t *next;$/;"	m	struct:node_t	typeref:struct:node_t *	file:
+next	list.c	/^  struct node_t *next;$/;"	m	struct:sentinel_t	typeref:struct:node_t *	file:
+node	list.c	/^} node;$/;"	t	typeref:struct:node_t	file:
+node_t	list.c	/^typedef struct node_t {$/;"	s	file:
+prev	list.c	/^  struct node_t *prev;$/;"	m	struct:node_t	typeref:struct:node_t *	file:
+prev	list.c	/^  struct node_t *prev;$/;"	m	struct:sentinel_t	typeref:struct:node_t *	file:
+sentinel	list.c	/^  struct no#060606de_t *sentinel;$/;"	m	struct:list_t	typeref:struct:no#060606de_t *	file:
+sentinel	list.c	/^} sentinel;$/;"	t	typeref:struct:sentinel_t	file:
+sentinel_t	list.c	/^typedef struct sentinel_t {$/;"	s	file:

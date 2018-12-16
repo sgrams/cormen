@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=$(shell pkg-config --cflags glib-2.0) -Wall -Werror$/;"	m
+DEFAULT_BUFF_SIZE	strings.h	/^#define DEFAULT_BUFF_SIZE /;"	d
+DEFAULT_DICT_SIZE	main.c	/^#define  DEFAULT_DICT_SIZE /;"	d	file:
+DEFAULT_PRIM_NUMB	main.c	/^#define  DEFAULT_PRIM_NUMB /;"	d	file:
+LDFLAGS	Makefile	/^LDFLAGS=$(shell pkg-config --libs glib-2.0) -lm$/;"	m
+MLD	main.c	/^#define  MLD /;"	d	file:
+STRINGS_H_	strings.h	/^#define STRINGS_H_$/;"	d
+String matching algorithms	README.md	/^# String matching algorithms$/;"	c
+clean	Makefile	/^clean: $/;"	t
+main	Makefile	/^main:	main.o strings.o$/;"	t
+main	main.c	/^gint32 main (gint argc, gchar *argv[]) {$/;"	f	typeref:typename:gint32
+main.o	Makefile	/^main.o:	main.c$/;"	t
+rmobj	Makefile	/^rmobj:$/;"	t
+run	Makefile	/^run: main$/;"	t
+str_matcher_knuth_morris_pratt	strings.c	/^str_matcher_knuth_morris_pratt (gchar *str, gchar *pat) {$/;"	f	typeref:typename:gint
+str_matcher_naive	strings.c	/^str_matcher_naive (gchar *str, gchar *pat) {$/;"	f	typeref:typename:gint
+str_matcher_rabin_karp	strings.c	/^str_matcher_rabin_karp (gchar *str, gchar *pat, gint d, gint q) {$/;"	f	typeref:typename:gint
+str_utils_comp_prefix_func	strings.c	/^str_utils_comp_prefix_func (gchar *str) {$/;"	f	typeref:typename:gint *
+str_utils_read_str	strings.c	/^str_utils_read_str (FILE *in) {$/;"	f	typeref:typename:gchar *
+str_utils_remove_newline	strings.c	/^str_utils_remove_newline (gchar *str) {$/;"	f	typeref:typename:void
+strings.o	Makefile	/^strings.o: strings.c$/;"	t
+| Knuth-Morris-Pratt | Θ(m)               | *Θ(m)*            |	README.md	/^| Knuth-Morris-Pratt | Θ(m)               | *Θ(m)*            |$/;"	s

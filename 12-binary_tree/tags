@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+defaultErrorSyntax	5-tree.c	/^#define defaultErrorSyntax /;"	d	file:
+defaultLineSize	5-tree.c	/^#define defaultLineSize /;"	d	file:
+defaultStringBuffer	5-tree.c	/^#define defaultStringBuffer /;"	d	file:
+defaultSyntax	5-tree.c	/^#define defaultSyntax /;"	d	file:
+flag	5-tree.c	/^  gint flag;$/;"	m	struct:node	typeref:typename:gint	file:
+le	5-tree.c	/^  struct node *le;$/;"	m	struct:node	typeref:struct:node *	file:
+main	5-tree.c	/^gint main (gint argc, gchar *argv[])$/;"	f	typeref:typename:gint
+node	5-tree.c	/^typedef struct node {$/;"	s	file:
+node_t	5-tree.c	/^} node_t;$/;"	t	typeref:struct:node	file:
+pa	5-tree.c	/^  struct node *pa;$/;"	m	struct:node	typeref:struct:node *	file:
+ri	5-tree.c	/^  struct node *ri;$/;"	m	struct:node	typeref:struct:node *	file:
+tree_close	5-tree.c	/^void tree_close (node_t *tree) {$/;"	f	typeref:typename:void
+tree_delete	5-tree.c	/^node_t *tree_delete (node_t *tree, gint key) {$/;"	f	typeref:typename:node_t *
+tree_delete_node	5-tree.c	/^node_t *tree_delete_node (node_t *tree, node_t *z) {$/;"	f	typeref:typename:node_t *
+tree_display	5-tree.c	/^void tree_display (node_t *tree, gint space) {$/;"	f	typeref:typename:void
+tree_init	5-tree.c	/^node_t *tree_init (gint value) {$/;"	f	typeref:typename:node_t *
+tree_insert	5-tree.c	/^node_t *tree_insert (node_t *tree, gint value) {$/;"	f	typeref:typename:node_t *
+tree_minimum	5-tree.c	/^node_t *tree_minimum (node_t *tree) {$/;"	f	typeref:typename:node_t *
+tree_print	5-tree.c	/^void tree_print (node_t *tree) {$/;"	f	typeref:typename:void
+tree_print_node	5-tree.c	/^void tree_print_node (node_t *node) {$/;"	f	typeref:typename:void
+tree_search	5-tree.c	/^node_t *tree_search (node_t *tree, gint value) {$/;"	f	typeref:typename:node_t *
+tree_transplant	5-tree.c	/^node_t *tree_transplant (node_t *tree, node_t *u, node_t *v) {$/;"	f	typeref:typename:node_t *
+val	5-tree.c	/^  gint val;$/;"	m	struct:node	typeref:typename:gint	file:

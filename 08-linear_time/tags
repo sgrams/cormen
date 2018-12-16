@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+__anon67f6c2b60108	radixsort.c	/^typedef struct {$/;"	s	file:
+char_to_index	radixsort.c	/^gint char_to_index (gchar c) {$/;"	f	typeref:typename:gint
+defaultNameBuffer	radixsort.c	/^#define defaultNameBuffer /;"	d	file:
+defaultOutputFileName	radixsort.c	/^#define defaultOutputFileName /;"	d	file:
+defaultSortMode	radixsort.c	/^#define defaultSortMode /;"	d	file:
+defaultStrBuffer	radixsort.c	/^#define defaultStrBuffer /;"	d	file:
+defaultTestMode	radixsort.c	/^#define defaultTestMode /;"	d	file:
+exchange	radixsort.c	/^void exchange (name_entry *A, gint a, gint b) {$/;"	f	typeref:typename:void
+find_max_length	radixsort.c	/^guint find_max_length (name_entry *A, gint n) {$/;"	f	typeref:typename:guint
+len	radixsort.c	/^    gsize     len;$/;"	m	struct:__anon67f6c2b60108	typeref:typename:gsize	file:
+main	radixsort.c	/^gint main (gint argc, gchar **argv) {$/;"	f	typeref:typename:gint
+name	radixsort.c	/^    gchar  *name;$/;"	m	struct:__anon67f6c2b60108	typeref:typename:gchar *	file:
+name_entry	radixsort.c	/^} name_entry;$/;"	t	typeref:struct:__anon67f6c2b60108	file:
+ne_cpy	radixsort.c	/^void ne_cpy (name_entry *B, name_entry A) {$/;"	f	typeref:typename:void
+partition	radixsort.c	/^gint partition (name_entry *A, gint p, gint r) {$/;"	f	typeref:typename:gint
+pop	radixsort.c	/^    gint      pop;$/;"	m	struct:__anon67f6c2b60108	typeref:typename:gint	file:
+quick_sort	radixsort.c	/^void quick_sort (name_entry *A, gint p, gint r) {$/;"	f	typeref:typename:void
+radix_sort	radixsort.c	/^void radix_sort (name_entry *A, gint n) {$/;"	f	typeref:typename:void
+str_count	radixsort.c	/^void str_count (name_entry *A, gint n, gint b) {$/;"	f	typeref:typename:void
+verbose_flag	radixsort.c	/^gint verbose_flag = 0;$/;"	v	typeref:typename:gint

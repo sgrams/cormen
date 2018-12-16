@@ -1,0 +1,21 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+1-lcs	Makefile	/^1-lcs:	1-lcs.o$/;"	t
+1-lcs.o	Makefile	/^1-lcs.o:	1-lcs.c$/;"	t
+CC	Makefile	/^CC=gcc $/;"	m
+CFLAGS	Makefile	/^CFLAGS=$(shell pkg-config --cflags glib-2.0)$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=$(shell pkg-config --libs glib-2.0)$/;"	m
+Longest common subsequence	README.md	/^# Longest common subsequence$/;"	c
+`abadaba`	README.md	/^  `abadaba`  $/;"	s
+clean	Makefile	/^clean: $/;"	t
+defaultStrBuffer	1-lcs.c	/^#define defaultStrBuffer /;"	d	file:
+g_list_remove_dupes	1-lcs.c	/^GList *g_list_remove_dupes (GList *lis) {$/;"	f	typeref:typename:GList *
+lcs_length	1-lcs.c	/^gint lcs_length (gint **c, gchar *x, gchar *y) {$/;"	f	typeref:typename:gint
+lcs_print_all	1-lcs.c	/^GList *lcs_print_all (gint **c, gchar *x, gchar *y, gint i, gint j) {$/;"	f	typeref:typename:GList *
+main	1-lcs.c	/^gint main (void) {$/;"	f	typeref:typename:gint
+run	Makefile	/^run: 1-lcs$/;"	t

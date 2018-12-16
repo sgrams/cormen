@@ -1,0 +1,14 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+defaultOutputFileName	heapsort.c	/^#define defaultOutputFileName /;"	d	file:
+exchange	heapsort.c	/^void exchange (gint *A, gint a, gint b) {$/;"	f	typeref:typename:void
+heapsort	heapsort.c	/^void heapsort (gint *A, gint n, gint type) {$/;"	f	typeref:typename:void
+heapsort_buildheap	heapsort.c	/^void heapsort_buildheap (gint *A, gint heap_size, gint type) {$/;"	f	typeref:typename:void
+heapsort_heapify	heapsort.c	/^void heapsort_heapify (gint *A, gint i, gint heap_size) {$/;"	f	typeref:typename:void
+heapsort_heapify_iterative	heapsort.c	/^void heapsort_heapify_iterative (gint *A, gint i, gint heap_size) {$/;"	f	typeref:typename:void
+main	heapsort.c	/^gint main (gint argc, gchar **argv) {$/;"	f	typeref:typename:gint

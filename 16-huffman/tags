@@ -1,0 +1,119 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+**.huff File Structure**	README.md	/^## **.huff File Structure**$/;"	s
+**Info**	README.md	/^## **Info** $/;"	s
+**To-Do**	README.md	/^## **To-Do**$/;"	s
+- *AES encryption*	README.md	/^- *AES encryption*$/;"	s
+0. Definitions.	LICENSE.md	/^#### 0. Definitions.$/;"	t
+1. Source Code.	LICENSE.md	/^#### 1. Source Code.$/;"	t
+10. Automatic Licensing of Downstream Recipients.	LICENSE.md	/^#### 10. Automatic Licensing of Downstream Recipients.$/;"	t
+11. Patents.	LICENSE.md	/^#### 11. Patents.$/;"	t
+12. No Surrender of Others' Freedom.	LICENSE.md	/^#### 12. No Surrender of Others' Freedom.$/;"	t
+13. Use with the GNU Affero General Public License.	LICENSE.md	/^#### 13. Use with the GNU Affero General Public License.$/;"	t
+14. Revised Versions of this License.	LICENSE.md	/^#### 14. Revised Versions of this License.$/;"	t
+15. Disclaimer of Warranty.	LICENSE.md	/^#### 15. Disclaimer of Warranty.$/;"	t
+16. Limitation of Liability.	LICENSE.md	/^#### 16. Limitation of Liability.$/;"	t
+17. Interpretation of Sections 15 and 16.	LICENSE.md	/^#### 17. Interpretation of Sections 15 and 16.$/;"	t
+2. Basic Permissions.	LICENSE.md	/^#### 2. Basic Permissions.$/;"	t
+3. Protecting Users' Legal Rights From Anti-Circumvention Law.	LICENSE.md	/^#### 3. Protecting Users' Legal Rights From Anti-Circumvention Law.$/;"	t
+4. Conveying Verbatim Copies.	LICENSE.md	/^#### 4. Conveying Verbatim Copies.$/;"	t
+5. Conveying Modified Source Versions.	LICENSE.md	/^#### 5. Conveying Modified Source Versions.$/;"	t
+6. Conveying Non-Source Forms.	LICENSE.md	/^#### 6. Conveying Non-Source Forms.$/;"	t
+7. Additional Terms.	LICENSE.md	/^#### 7. Additional Terms.$/;"	t
+8. Termination.	LICENSE.md	/^#### 8. Termination.$/;"	t
+9. Acceptance Not Required for Having Copies.	LICENSE.md	/^#### 9. Acceptance Not Required for Having Copies.$/;"	t
+CC	Makefile	/^CC=gcc $/;"	m
+CFLAGS	Makefile	/^CFLAGS=$(shell pkg-config --cflags glib-2.0)$/;"	m
+DEFAULT_DECODE_OUTPUT_FILE	main.c	/^#define DEFAULT_DECODE_OUTPUT_FILE /;"	d	file:
+DEFAULT_ENCODE_OUTPUT_EXTENSION	main.c	/^#define DEFAULT_ENCODE_OUTPUT_EXTENSION /;"	d	file:
+DEFAULT_ENCODE_OUTPUT_FILE	main.c	/^#define DEFAULT_ENCODE_OUTPUT_FILE /;"	d	file:
+DEFAULT_ENCRYPTED_MAGIC_NUMBER	huff.h	/^#define DEFAULT_ENCRYPTED_MAGIC_NUMBER /;"	d
+DEFAULT_ERROR_SYNTAX	main.c	/^#define DEFAULT_ERROR_SYNTAX /;"	d	file:
+DEFAULT_MAGIC_NUMBER	huff.h	/^#define DEFAULT_MAGIC_NUMBER /;"	d
+DEFAULT_SYNTAX	main.c	/^#define DEFAULT_SYNTAX /;"	d	file:
+Dictionary entry	README.md	/^### Dictionary entry$/;"	S
+Encoded stream	README.md	/^### Encoded stream$/;"	S
+Footer	README.md	/^### Footer$/;"	S
+GNU GENERAL PUBLIC LICENSE	LICENSE.md	/^### GNU GENERAL PUBLIC LICENSE$/;"	S
+HUFF_H_	huff.h	/^#define HUFF_H_$/;"	d
+Header	README.md	/^### Header$/;"	S
+How to Apply These Terms to Your New Programs	LICENSE.md	/^### How to Apply These Terms to Your New Programs$/;"	S
+Huffman Coding	README.md	/^# Huffman Coding$/;"	c
+In between	README.md	/^### In between$/;"	S
+LDFLAGS	Makefile	/^LDFLAGS=$(shell pkg-config --libs glib-2.0)$/;"	m
+Preamble	LICENSE.md	/^### Preamble$/;"	S
+TERMS AND CONDITIONS	LICENSE.md	/^### TERMS AND CONDITIONS$/;"	S
+buf	huff.h	/^  guint8 *buf;$/;"	m	struct:huff_decode_fifo	typeref:typename:guint8 *
+clean	Makefile	/^clean: $/;"	t
+code	huff.h	/^  guint8 *code;$/;"	m	struct:huff_tree_entry	typeref:typename:guint8 *
+entry	huff.h	/^  struct huff_tree_entry *entry;$/;"	m	struct:huff_tree	typeref:struct:huff_tree_entry *
+head	huff.h	/^  gint32 head;$/;"	m	struct:huff_decode_fifo	typeref:typename:gint32
+htab	huff.h	/^  GHashTable *htab;$/;"	m	struct:huff_decode	typeref:typename:GHashTable *
+huff.o	Makefile	/^huff.o: huff.c huff.h$/;"	t
+huff_append	huff.c	/^huff_append  (huff_encode_t *file, guint8 byte) {$/;"	f	typeref:typename:huff_encode_t *
+huff_calc_binary	huff.c	/^huff_calc_binary (guint16 x, gint8 bit) {$/;"	f	typeref:typename:guint8 *
+huff_calc_crc32	huff.c	/^huff_calc_crc32 (guint8 *stream, gint32 n) {$/;"	f	typeref:typename:guint32
+huff_calc_crc32_reverse	huff.c	/^huff_calc_crc32_reverse (guint32 crc) {$/;"	f	typeref:typename:guint32
+huff_close_tree	huff.c	/^huff_close_tree (huff_tree_t *node) {$/;"	f	typeref:typename:void
+huff_create_dict	huff.c	/^huff_create_dict (huff_encode_t *file) {$/;"	f	typeref:typename:huff_encode_t *
+huff_create_tree	huff.c	/^huff_create_tree (huff_encode_t *file) {$/;"	f	typeref:typename:huff_encode_t *
+huff_decode	huff.h	/^typedef struct huff_decode {$/;"	s
+huff_decode_close	huff.c	/^huff_decode_close (huff_decode_t *file) {$/;"	f	typeref:typename:void
+huff_decode_fifo	huff.h	/^typedef struct huff_decode_fifo {$/;"	s
+huff_decode_fifo_t	huff.h	/^} huff_decode_fifo_t;$/;"	t	typeref:struct:huff_decode_fifo
+huff_decode_init	huff.c	/^huff_decode_init (gsize size, gsize uniq_size) {$/;"	f	typeref:typename:huff_decode_t *
+huff_decode_t	huff.h	/^} huff_decode_t;$/;"	t	typeref:struct:huff_decode
+huff_encode	huff.h	/^typedef struct huff_encode {$/;"	s
+huff_encode_close	huff.c	/^huff_encode_close (huff_encode_t *file) {$/;"	f	typeref:typename:void
+huff_encode_init	huff.c	/^huff_encode_init  (gsize size, gsize uniq_size) {$/;"	f	typeref:typename:huff_encode_t *
+huff_encode_t	huff.h	/^} huff_encode_t;$/;"	t	typeref:struct:huff_encode
+huff_list	huff.h	/^typedef struct huff_list {$/;"	s
+huff_list_append	huff.c	/^huff_list_append (huff_encode_t *file, huff_list_t *node) {$/;"	f	typeref:typename:huff_list_t *
+huff_list_extract_min	huff.c	/^huff_list_extract_min (huff_encode_t *file) {$/;"	f	typeref:typename:huff_list_t *
+huff_list_find_byte	huff.c	/^huff_list_find_byte (huff_encode_t *file, guint8 byte) {$/;"	f	typeref:typename:huff_tree_t *
+huff_list_t	huff.h	/^} huff_list_t;$/;"	t	typeref:struct:huff_list
+huff_print_dict	huff.c	/^huff_print_dict (huff_encode_t *huff) {$/;"	f	typeref:typename:void
+huff_read_code	huff.c	/^huff_read_code (FILE *output, huff_decode_t *dict, FILE *input) {$/;"	f	typeref:typename:gint32
+huff_read_dict	huff.c	/^huff_read_dict (FILE *input, GHashTable *htab, guint32 size) {$/;"	f	typeref:typename:gint32
+huff_read_head	huff.c	/^huff_read_head (FILE *input, huff_decode_t *dict) {$/;"	f	typeref:typename:gint32
+huff_save_code	huff.c	/^huff_save_code (FILE *output, huff_encode_t *dict, guint8 *stream) {$/;"	f	typeref:typename:gint32
+huff_save_crc32	huff.c	/^huff_save_crc32 (FILE *output) {$/;"	f	typeref:typename:guint32
+huff_save_dict	huff.c	/^huff_save_dict (FILE *output, huff_tree_t *node) {$/;"	f	typeref:typename:gint32
+huff_save_head	huff.c	/^huff_save_head (FILE *output, huff_encode_t *dict) {$/;"	f	typeref:typename:gint32
+huff_tree	huff.h	/^typedef struct huff_tree {$/;"	s
+huff_tree_entry	huff.h	/^typedef struct huff_tree_entry {$/;"	s
+huff_tree_entry_t	huff.h	/^} huff_tree_entry_t;$/;"	t	typeref:struct:huff_tree_entry
+huff_tree_find_byte	huff.c	/^huff_tree_find_byte (huff_tree_t *node, guint8 byte) {$/;"	f	typeref:typename:huff_tree_t *
+huff_tree_t	huff.h	/^} huff_tree_t;$/;"	t	typeref:struct:huff_tree
+huff_tree_traverse	huff.c	/^huff_tree_traverse (huff_tree_t *node) {  $/;"	f	typeref:typename:void
+huff_tree_traverse_print	huff.c	/^huff_tree_traverse_print (huff_tree_t *node) {$/;"	f	typeref:typename:gint32
+le	huff.h	/^  struct huff_tree *le;$/;"	m	struct:huff_tree	typeref:struct:huff_tree *
+list	huff.h	/^  huff_list_t *list;$/;"	m	struct:huff_encode	typeref:typename:huff_list_t *
+main	Makefile	/^main:	main.o huff.o$/;"	t
+main	main.c	/^gint32 main (gint32 argc, gchar *argv[]) {$/;"	f	typeref:typename:gint32
+main.o	Makefile	/^main.o:	main.c$/;"	t
+next	huff.h	/^  struct huff_list *next;$/;"	m	struct:huff_list	typeref:struct:huff_list *
+pa	huff.h	/^  struct huff_tree *pa;$/;"	m	struct:huff_tree	typeref:struct:huff_tree *
+prev	huff.h	/^  struct huff_list *prev;$/;"	m	struct:huff_list	typeref:struct:huff_list *
+quantity	huff.h	/^  gsize   quantity;$/;"	m	struct:huff_tree_entry	typeref:typename:gsize
+ri	huff.h	/^  struct huff_tree *ri;$/;"	m	struct:huff_tree	typeref:struct:huff_tree *
+rmobj	Makefile	/^rmobj:$/;"	t
+run	Makefile	/^run: main$/;"	t
+size	huff.h	/^  gint32 size;$/;"	m	struct:huff_decode_fifo	typeref:typename:gint32
+size	huff.h	/^  gsize size;$/;"	m	struct:huff_decode	typeref:typename:gsize
+size	huff.h	/^  gsize size;$/;"	m	struct:huff_encode	typeref:typename:gsize
+tail	huff.h	/^  gint32 tail;$/;"	m	struct:huff_decode_fifo	typeref:typename:gint32
+tree	huff.h	/^  struct huff_tree *tree;$/;"	m	struct:huff_list	typeref:struct:huff_tree *
+uniq_byte	huff.h	/^  guint8 *uniq_byte;$/;"	m	struct:huff_tree_entry	typeref:typename:guint8 *
+uniq_size	huff.h	/^  gsize uniq_size;$/;"	m	struct:huff_decode	typeref:typename:gsize
+uniq_size	huff.h	/^  gsize uniq_size;$/;"	m	struct:huff_encode	typeref:typename:gsize
+| CRC32   |   4   |   |	README.md	/^| CRC32   |   4   |   |$/;"	s
+| encoded byte     | 4     |           |	README.md	/^| encoded byte     | 4     |           |$/;"	s
+| entry | ???   |   |	README.md	/^| entry | ???   |   |$/;"	s
+| padding (0xFFFF) |       |           |	README.md	/^| padding (0xFFFF) |       |           |$/;"	s
+| padding (0xFFFF) | 2     |              |	README.md	/^| padding (0xFFFF) | 2     |              |$/;"	s

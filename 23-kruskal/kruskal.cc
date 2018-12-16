@@ -65,6 +65,7 @@ DisjointSet::~DisjointSet() {
   }
   nodeSet.clear();
 }
+
 Node *
 DisjointSet::MakeSet (gint32 x) {
   return new Node (x);

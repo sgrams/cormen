@@ -2,7 +2,8 @@
  *  1. USAGE
  *     Compile with command `make`
  *
- *     Syntax: "./main -i <examples/example-1.txt> -p [prints graph] -d [prints graph in DFS order]"
+ *     Syntax: "./main -i <examples/example-1.txt> -p [prints graph] -d [prints graph in DFS order]
+ *              -o [outputs spanning tree into adjacency matrix]"
  *     Tested under kernel 4.16.8-1-ARCH and g++ 8.1.0
  * 
  *  This file is a part of 22-elementary_graph_algs task.

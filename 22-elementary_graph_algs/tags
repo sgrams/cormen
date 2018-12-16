@@ -1,0 +1,77 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+CC	Makefile	/^CC=g++$/;"	m
+DEFAULT_ERROR_SYNTAX	main.cc	/^#define DEFAULT_ERROR_SYNTAX /;"	d	file:
+DEFAULT_SYNTAX	main.cc	/^#define DEFAULT_SYNTAX /;"	d	file:
+DFS	graph.cc	/^Graph::DFS () {$/;"	f	class:Graph	typeref:typename:void
+DFS_visit	graph.cc	/^Graph::DFS_visit (gint32 u) {$/;"	f	class:Graph	typeref:typename:void
+Elementary Graph Algorithms	README.md	/^# Elementary Graph Algorithms$/;"	c
+Graph	graph.cc	/^Graph::Graph (gint32 V) {$/;"	f	class:Graph
+Graph	graph.h	/^class Graph {$/;"	c
+LDFLAGS	Makefile	/^LDFLAGS=$(shell pkg-config --libs glib-2.0)$/;"	m
+PI	graph.h	/^  vertex *PI;$/;"	m	struct:vertex	typeref:typename:vertex *
+_GRAPH_H	graph.h	/^#define  _GRAPH_H$/;"	d
+__author__	examples/adjacency_matrix_grapher.py	/^__author__ = """Stanisław Grams (sjg@fmdx.pl)"""$/;"	v
+add_edge	graph.cc	/^Graph::add_edge (gint32 index, gint32 value) {$/;"	f	class:Graph	typeref:typename:void
+adj_list	graph.h	/^typedef struct adj_list {$/;"	s
+adj_list_t	graph.h	/^} adj_list_t;$/;"	t	typeref:struct:adj_list
+adj_matrix_t	graph.h	/^typedef vector<vector<gint32> > adj_matrix_t;$/;"	t	typeref:typename:vector<vector<gint32>>
+adj_node	graph.h	/^  adj_node (gint32 _value) : value (_value),$/;"	f	struct:adj_node
+adj_node	graph.h	/^typedef struct adj_node {$/;"	s
+adj_node_t	graph.h	/^} adj_node_t;$/;"	t	typeref:struct:adj_node
+adjacencies	graph.h	/^    vector <adj_list_t> adjacencies;$/;"	m	class:Graph	typeref:typename:vector<adj_list_t>
+black	graph.h	/^  black$/;"	e	enum:color_t
+clean	Makefile	/^clean: $/;"	t
+color	graph.h	/^  color_t color;$/;"	m	struct:vertex	typeref:typename:color_t
+color_t	graph.h	/^enum color_t {$/;"	g
+edge1	examples/03-graph.svg	/^<g id="edge1" class="edge">$/;"	i
+edge10	examples/03-graph.svg	/^<g id="edge10" class="edge">$/;"	i
+edge11	examples/03-graph.svg	/^<g id="edge11" class="edge">$/;"	i
+edge12	examples/03-graph.svg	/^<g id="edge12" class="edge">$/;"	i
+edge13	examples/03-graph.svg	/^<g id="edge13" class="edge">$/;"	i
+edge14	examples/03-graph.svg	/^<g id="edge14" class="edge">$/;"	i
+edge2	examples/03-graph.svg	/^<g id="edge2" class="edge">$/;"	i
+edge3	examples/03-graph.svg	/^<g id="edge3" class="edge">$/;"	i
+edge4	examples/03-graph.svg	/^<g id="edge4" class="edge">$/;"	i
+edge5	examples/03-graph.svg	/^<g id="edge5" class="edge">$/;"	i
+edge6	examples/03-graph.svg	/^<g id="edge6" class="edge">$/;"	i
+edge7	examples/03-graph.svg	/^<g id="edge7" class="edge">$/;"	i
+edge8	examples/03-graph.svg	/^<g id="edge8" class="edge">$/;"	i
+edge9	examples/03-graph.svg	/^<g id="edge9" class="edge">$/;"	i
+graph.o	Makefile	/^graph.o: graph.cc$/;"	t
+graph0	examples/03-graph.svg	/^<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 334.02)">$/;"	i
+gray	graph.h	/^  gray,$/;"	e	enum:color_t
+head	graph.h	/^  adj_node_t *head;$/;"	m	struct:adj_list	typeref:typename:adj_node_t *
+index	graph.h	/^  gint32 index;$/;"	m	struct:vertex	typeref:typename:gint32
+main	Makefile	/^main:	main.o graph.o$/;"	t
+main	examples/adjacency_matrix_grapher.py	/^def main (argv):$/;"	f
+main	main.cc	/^gint32 main (gint32 argc, gchar **argv) {$/;"	f	typeref:typename:gint32
+main.o	Makefile	/^main.o:	main.cc$/;"	t
+next	graph.h	/^  struct adj_node *next;$/;"	m	struct:adj_node	typeref:struct:adj_node *
+node1	examples/03-graph.svg	/^<g id="node1" class="node">$/;"	i
+node2	examples/03-graph.svg	/^<g id="node2" class="node">$/;"	i
+node3	examples/03-graph.svg	/^<g id="node3" class="node">$/;"	i
+node4	examples/03-graph.svg	/^<g id="node4" class="node">$/;"	i
+node5	examples/03-graph.svg	/^<g id="node5" class="node">$/;"	i
+node6	examples/03-graph.svg	/^<g id="node6" class="node">$/;"	i
+node7	examples/03-graph.svg	/^<g id="node7" class="node">$/;"	i
+node8	examples/03-graph.svg	/^<g id="node8" class="node">$/;"	i
+pgv	examples/adjacency_matrix_grapher.py	/^import pygraphviz as pgv$/;"	I
+print	graph.cc	/^Graph::print () {$/;"	f	class:Graph	typeref:typename:void
+read_from_adj_matrix_file	graph.cc	/^Graph::read_from_adj_matrix_file (ifstream& input_file) {$/;"	f	class:Graph	typeref:typename:void
+rmobj	Makefile	/^rmobj:$/;"	t
+run	Makefile	/^run: main$/;"	t
+spanning_edges	graph.h	/^    unordered_map <int, vector<int> > spanning_edges;$/;"	m	class:Graph	typeref:typename:unordered_map<int,vector<int>>
+value	graph.h	/^  gint32 value;$/;"	m	struct:adj_node	typeref:typename:gint32
+vertex	graph.h	/^  vertex (gint32 _index) : index (_index),$/;"	f	struct:vertex
+vertex	graph.h	/^typedef struct vertex {$/;"	s
+vertex_t	graph.h	/^} vertex_t;$/;"	t	typeref:struct:vertex
+vertices	graph.h	/^    vector <vertex_t> vertices;$/;"	m	class:Graph	typeref:typename:vector<vertex_t>
+white	graph.h	/^  white,$/;"	e	enum:color_t
+write_DFS_to_adj_matrix_file	graph.cc	/^Graph::write_DFS_to_adj_matrix_file (ofstream& output_file) {$/;"	f	class:Graph	typeref:typename:void
+~Graph	graph.cc	/^Graph::~Graph () {$/;"	f	class:Graph

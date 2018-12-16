@@ -12,8 +12,8 @@
  *  Stanisław J. Grams
  */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
+#include <cstdlib>
 #include <glib.h>
 #include "btree.h"
 
@@ -23,7 +23,5 @@ gint main (gint argc, gchar *argv[]) {
   btree_t *bt = btree_create (bt);
 
   btree_destroy (bt);
-
-
   return EXIT_SUCCESS;
 }

@@ -20,8 +20,8 @@
 
 #include "strings.h"
 
-#define  DEFAULT_DICT_SIZE 256
-#define  DEFAULT_PRIM_NUMB 3719
+#define  DEFAULT_DICT_SIZE 128
+#define  DEFAULT_PRIM_NUMB 21377
 #define  MLD 1000000000.0
 
 gint32 main (gint argc, gchar *argv[]) {
@@ -46,21 +46,21 @@ gint32 main (gint argc, gchar *argv[]) {
   str_matcher_naive (str, pat);
   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&t1);
   time_dif = (t1.tv_sec+t1.tv_nsec/MLD)-(t0.tv_sec+t0.tv_nsec/MLD);
-  printf ("~ %.3lfs.\n", time_dif);
+  printf ("~ %.5lfs.\n", time_dif);
 
   printf ("\nRabin-Karp Algorithm:\n");
   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&t0);
   str_matcher_rabin_karp (str, pat, DEFAULT_DICT_SIZE, DEFAULT_PRIM_NUMB);
   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&t1);
   time_dif = (t1.tv_sec+t1.tv_nsec/MLD)-(t0.tv_sec+t0.tv_nsec/MLD);
-  printf ("~ %.3lfs.\n", time_dif);
+  printf ("~ %.5lfs.\n", time_dif);
 
   printf ("\nKnuth-Morris-Pratt Algorithm:\n");
   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&t0);
   str_matcher_knuth_morris_pratt (str, pat);
   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&t1);
   time_dif = (t1.tv_sec+t1.tv_nsec/MLD)-(t0.tv_sec+t0.tv_nsec/MLD);
-  printf ("~ %.3lfs.\n", time_dif);
+  printf ("~ %.5lfs.\n", time_dif);
 
   // Freeing memory
   g_free (str);

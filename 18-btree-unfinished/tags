@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+B-Trees	README.md	/^# B-Trees$/;"	c
+BTree	btree.h	/^class BTree {$/;"	c
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=$(shell pkg-config --cflags glib-2.0)$/;"	m
+DEFAULT_M_NUMBER	main.cc	/^#define DEFAULT_M_NUMBER /;"	d	file:
+LDFLAGS	Makefile	/^LDFLAGS=$(shell pkg-config --libs glib-2.0)$/;"	m
+_BTREE_H	btree.h	/^#define _BTREE_H$/;"	d
+btree.o	Makefile	/^btree.o: btree.c btree.h$/;"	t
+btree_allocate_node	btree.cc	/^btree_allocate_node () {$/;"	f	typeref:typename:btree_t *
+btree_create	btree.cc	/^btree_create (btree_t *tree) {$/;"	f	typeref:typename:btree_t *
+btree_deallocate_node	btree.cc	/^btree_deallocate_node (btree_t *node) {$/;"	f	typeref:typename:void
+btree_destroy	btree.cc	/^btree_destroy (btree_t *tree) {$/;"	f	typeref:typename:void
+btree_search	btree.cc	/^btree_search (btree_t *x, gint32 k, gint32 *num) {$/;"	f	typeref:typename:btree_t *
+btree_split_child	btree.cc	/^btree_split_child (btree_t *x, gint32 i) {$/;"	f	typeref:typename:void
+ch	btree.h	/^    BTree  **ch;$/;"	m	class:BTree	typeref:typename:BTree **
+clean	Makefile	/^clean: $/;"	t
+data	btree.h	/^    gint    *data;$/;"	m	class:BTree	typeref:typename:gint *
+isLeaf	btree.h	/^    gboolean isLeaf;$/;"	m	class:BTree	typeref:typename:gboolean
+main	Makefile	/^main:	main.o btree.o$/;"	t
+main	main.cc	/^gint main (gint argc, gchar *argv[]) {$/;"	f	typeref:typename:gint
+main.o	Makefile	/^main.o:	main.c$/;"	t
+n	btree.h	/^    gint     n;$/;"	m	class:BTree	typeref:typename:gint
+rmobj	Makefile	/^rmobj:$/;"	t
+run	Makefile	/^run: main$/;"	t

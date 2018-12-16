@@ -1,0 +1,39 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+__anon224026790108	2-hash.c	/^typedef struct {$/;"	s	file:
+defaultBigM	2-hash.c	/^#define defaultBigM /;"	d	file:
+defaultErrorSyntax	1-hash.c	/^#define defaultErrorSyntax /;"	d	file:
+defaultErrorSyntax	2-hash.c	/^#define defaultErrorSyntax /;"	d	file:
+defaultHashFuncConstA	2-hash.c	/^#define defaultHashFuncConstA /;"	d	file:
+defaultHashFuncConstB	2-hash.c	/^#define defaultHashFuncConstB /;"	d	file:
+defaultSmallM	2-hash.c	/^#define defaultSmallM /;"	d	file:
+defaultStringBuffer	1-hash.c	/^#define defaultStringBuffer /;"	d	file:
+defaultStringBuffer	2-hash.c	/^#define defaultStringBuffer /;"	d	file:
+defaultSyntax	1-hash.c	/^#define defaultSyntax /;"	d	file:
+defaultSyntax	2-hash.c	/^#define defaultSyntax /;"	d	file:
+defaultTestComposites	1-hash.c	/^#define defaultTestComposites /;"	d	file:
+defaultTestPrimes	1-hash.c	/^#define defaultTestPrimes /;"	d	file:
+defaultTestQuantity	1-hash.c	/^#define defaultTestQuantity /;"	d	file:
+hash_arr_find_avg	1-hash.c	/^gfloat hash_arr_find_avg (gint *arr, gint n) {$/;"	f	typeref:typename:gfloat
+hash_arr_find_max	1-hash.c	/^guint hash_arr_find_max (gint *arr, gint n) {$/;"	f	typeref:typename:guint
+hash_arr_insert	2-hash.c	/^glong hash_arr_insert (name_entry *hash_arr, name_entry *pos, gint m, gint strtoi_flag, gint tes/;"	f	typeref:typename:glong
+hash_arr_search	2-hash.c	/^glong hash_arr_search (name_entry *hash_arr, gchar *key, gint m, gint strtoi_flag, gint test_fla/;"	f	typeref:typename:glong
+hash_count_zeros	1-hash.c	/^gulong hash_count_zeros (gint *arr, gint n) {$/;"	f	typeref:typename:gulong
+hash_func	1-hash.c	/^gulong hash_func (gchar *key, gint m, gint strtoi_flag) {$/;"	f	typeref:typename:gulong
+hash_func	2-hash.c	/^gulong hash_func (gchar *key, gint i, gint m, gint strtoi_flag) {$/;"	f	typeref:typename:gulong
+hash_strtoi_djb2	1-hash.c	/^gulong hash_strtoi_djb2 (gchar *str) {$/;"	f	typeref:typename:gulong
+hash_strtoi_djb2	2-hash.c	/^gulong hash_strtoi_djb2 (gchar *str) {$/;"	f	typeref:typename:gulong
+hash_strtoi_sum	1-hash.c	/^gulong hash_strtoi_sum (gchar *str) {$/;"	f	typeref:typename:gulong
+hash_strtoi_sum	2-hash.c	/^gulong hash_strtoi_sum (gchar *str) {$/;"	f	typeref:typename:gulong
+hash_strtoi_xor	1-hash.c	/^gulong hash_strtoi_xor (gchar *str) {$/;"	f	typeref:typename:gulong
+hash_strtoi_xor	2-hash.c	/^gulong hash_strtoi_xor (gchar *str) {$/;"	f	typeref:typename:gulong
+main	1-hash.c	/^gint main (gint argc, gchar *argv[])$/;"	f	typeref:typename:gint
+main	2-hash.c	/^int main (gint argc, gchar **argv)$/;"	f	typeref:typename:int
+name	2-hash.c	/^  gchar *name;$/;"	m	struct:__anon224026790108	typeref:typename:gchar *	file:
+name_entry	2-hash.c	/^} name_entry;$/;"	t	typeref:struct:__anon224026790108	file:
+pop	2-hash.c	/^  gint pop;$/;"	m	struct:__anon224026790108	typeref:typename:gint	file:

@@ -1,0 +1,101 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+**Example output of grapher.py**	examples/README.md	/^# **Example output of grapher.py**$/;"	c
+AddEdge	kruskal.cc	/^Graph::AddEdge (gint32 u, gint32 v, gint32 w) {$/;"	f	class:Graph	typeref:typename:void
+AddKruskal	kruskal.cc	/^Graph::AddKruskal (gint32 u, gint32 v, gint32 w) {$/;"	f	class:Graph	typeref:typename:void
+CC	Makefile	/^CC=g++$/;"	m
+DEFAULT_ERROR_SYNTAX	main.cc	/^#define  DEFAULT_ERROR_SYNTAX /;"	d	file:
+DisjointSet	kruskal.cc	/^DisjointSet::DisjointSet (gint32 V) {$/;"	f	class:DisjointSet
+DisjointSet	kruskal.h	/^class DisjointSet {$/;"	c
+E	kruskal.h	/^    gint32 E;$/;"	m	class:Graph	typeref:typename:gint32
+FindKruskalMST	kruskal.cc	/^Graph::FindKruskalMST () {$/;"	f	class:Graph	typeref:typename:gint32
+FindSet	kruskal.cc	/^DisjointSet::FindSet (Node *x) {$/;"	f	class:DisjointSet	typeref:typename:Node *
+Graph	kruskal.cc	/^Graph::Graph (gint32 V, gint32 E) {$/;"	f	class:Graph
+Graph	kruskal.h	/^class Graph {$/;"	c
+KRUSKAL_H_	kruskal.h	/^#define KRUSKAL_H_$/;"	d
+Kruskal's Minimum Spanning Tree	README.md	/^# Kruskal's Minimum Spanning Tree$/;"	c
+LDFLAGS	Makefile	/^LDFLAGS=$(shell pkg-config --libs glib-2.0)$/;"	m
+Link	kruskal.cc	/^DisjointSet::Link (Node *a, Node *b) {$/;"	f	class:DisjointSet	typeref:typename:void
+MakeSet	kruskal.cc	/^DisjointSet::MakeSet (gint32 x) {$/;"	f	class:DisjointSet	typeref:typename:Node *
+Node	kruskal.cc	/^Node::Node () {$/;"	f	class:Node
+Node	kruskal.cc	/^Node::Node (gint32 val) {$/;"	f	class:Node
+Node	kruskal.h	/^class Node {$/;"	c
+Set	kruskal.cc	/^Graph::Set (gint32 V, gint32 E) {$/;"	f	class:Graph	typeref:typename:void
+Union	kruskal.cc	/^DisjointSet::Union (Node *a, Node *b) {$/;"	f	class:DisjointSet	typeref:typename:void
+V	kruskal.h	/^    gint32 V;$/;"	m	class:Graph	typeref:typename:gint32
+__author__	examples/grapher.py	/^__author__ = """Stanisław Grams (sjg@fmdx.pl)"""$/;"	v
+clean	Makefile	/^clean: $/;"	t
+edge1	examples/example-1.svg	/^<g id="edge1" class="edge">$/;"	i
+edge1	examples/example-2.svg	/^<g id="edge1" class="edge">$/;"	i
+edge1	examples/example-2_mst.svg	/^<g id="edge1" class="edge">$/;"	i
+edge1	output.svg	/^<g id="edge1" class="edge">$/;"	i
+edge2	examples/example-1.svg	/^<g id="edge2" class="edge">$/;"	i
+edge2	examples/example-2.svg	/^<g id="edge2" class="edge">$/;"	i
+edge2	examples/example-2_mst.svg	/^<g id="edge2" class="edge">$/;"	i
+edge2	output.svg	/^<g id="edge2" class="edge">$/;"	i
+edge3	examples/example-1.svg	/^<g id="edge3" class="edge">$/;"	i
+edge3	examples/example-2.svg	/^<g id="edge3" class="edge">$/;"	i
+edge3	examples/example-2_mst.svg	/^<g id="edge3" class="edge">$/;"	i
+edge4	examples/example-2.svg	/^<g id="edge4" class="edge">$/;"	i
+edge4	examples/example-2_mst.svg	/^<g id="edge4" class="edge">$/;"	i
+edge5	examples/example-2.svg	/^<g id="edge5" class="edge">$/;"	i
+edge5	examples/example-2_mst.svg	/^<g id="edge5" class="edge">$/;"	i
+edge6	examples/example-2.svg	/^<g id="edge6" class="edge">$/;"	i
+edge7	examples/example-2.svg	/^<g id="edge7" class="edge">$/;"	i
+edge8	examples/example-2.svg	/^<g id="edge8" class="edge">$/;"	i
+edge9	examples/example-2.svg	/^<g id="edge9" class="edge">$/;"	i
+edges	kruskal.h	/^    vector < pair<gint32, pair<gint32, gint32>> > edges;$/;"	m	class:Graph	typeref:typename:vector<pair<gint32,pair<gint32,gint32>>>
+getEdges	kruskal.cc	/^Graph::getEdges () {$/;"	f	class:Graph	typeref:typename:vector<pair<gint32,pair<gint32,gint32>>>
+getEdgesNumber	kruskal.cc	/^Graph::getEdgesNumber () {$/;"	f	class:Graph	typeref:typename:gint32
+getKruskals	kruskal.cc	/^Graph::getKruskals () {$/;"	f	class:Graph	typeref:typename:vector<pair<gint32,pair<gint32,gint32>>>
+getNode	kruskal.cc	/^DisjointSet::getNode (gint32 i) {$/;"	f	class:DisjointSet	typeref:typename:Node *
+getNodeSet	kruskal.cc	/^DisjointSet::getNodeSet () {$/;"	f	class:DisjointSet	typeref:typename:vector<Node * >
+getParent	kruskal.cc	/^Node::getParent () {$/;"	f	class:Node	typeref:typename:Node *
+getRank	kruskal.cc	/^Node::getRank () {$/;"	f	class:Node	typeref:typename:gint32
+getValue	kruskal.cc	/^Node::getValue () {$/;"	f	class:Node	typeref:typename:gint32
+getVerticesNumber	kruskal.cc	/^Graph::getVerticesNumber () {$/;"	f	class:Graph	typeref:typename:gint32
+graph0	examples/example-1.svg	/^<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 246.29)">$/;"	i
+graph0	examples/example-2.svg	/^<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 276.95)">$/;"	i
+graph0	examples/example-2_mst.svg	/^<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 362.71)">$/;"	i
+graph0	output.svg	/^<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 59)">$/;"	i
+incRank	kruskal.cc	/^Node::incRank () {$/;"	f	class:Node	typeref:typename:void
+kruskal	kruskal.h	/^    vector < pair<gint32, pair<gint32, gint32>> > kruskal;$/;"	m	class:Graph	typeref:typename:vector<pair<gint32,pair<gint32,gint32>>>
+kruskal.o	Makefile	/^kruskal.o: kruskal.cc$/;"	t
+main	Makefile	/^main:	main.o kruskal.o$/;"	t
+main	examples/grapher.py	/^def main (argv):$/;"	f
+main	main.cc	/^gint32 main (gint argc, gchar *argv[]) {$/;"	f	typeref:typename:gint32
+main.o	Makefile	/^main.o:	main.cc$/;"	t
+node1	examples/example-1.svg	/^<g id="node1" class="node">$/;"	i
+node1	examples/example-2.svg	/^<g id="node1" class="node">$/;"	i
+node1	examples/example-2_mst.svg	/^<g id="node1" class="node">$/;"	i
+node1	output.svg	/^<g id="node1" class="node">$/;"	i
+node2	examples/example-1.svg	/^<g id="node2" class="node">$/;"	i
+node2	examples/example-2.svg	/^<g id="node2" class="node">$/;"	i
+node2	examples/example-2_mst.svg	/^<g id="node2" class="node">$/;"	i
+node2	output.svg	/^<g id="node2" class="node">$/;"	i
+node3	examples/example-1.svg	/^<g id="node3" class="node">$/;"	i
+node3	examples/example-2.svg	/^<g id="node3" class="node">$/;"	i
+node3	examples/example-2_mst.svg	/^<g id="node3" class="node">$/;"	i
+node3	output.svg	/^<g id="node3" class="node">$/;"	i
+node4	examples/example-2.svg	/^<g id="node4" class="node">$/;"	i
+node4	examples/example-2_mst.svg	/^<g id="node4" class="node">$/;"	i
+node5	examples/example-2.svg	/^<g id="node5" class="node">$/;"	i
+node5	examples/example-2_mst.svg	/^<g id="node5" class="node">$/;"	i
+node6	examples/example-2.svg	/^<g id="node6" class="node">$/;"	i
+node6	examples/example-2_mst.svg	/^<g id="node6" class="node">$/;"	i
+nodeSet	kruskal.h	/^    vector<Node*> nodeSet;$/;"	m	class:DisjointSet	typeref:typename:vector<Node * >
+pa	kruskal.h	/^    Node *pa;$/;"	m	class:Node	typeref:typename:Node *
+pgv	examples/grapher.py	/^import pygraphviz as pgv$/;"	I
+rank	kruskal.h	/^    int  rank;$/;"	m	class:Node	typeref:typename:int
+rmobj	Makefile	/^rmobj:$/;"	t
+run	Makefile	/^run: main$/;"	t
+setParent	kruskal.cc	/^Node::setParent (Node *pa) {$/;"	f	class:Node	typeref:typename:void
+setRank	kruskal.cc	/^Node::setRank (gint32 rank) {$/;"	f	class:Node	typeref:typename:void
+setValue	kruskal.cc	/^Node::setValue (gint32 val) {$/;"	f	class:Node	typeref:typename:void
+val	kruskal.h	/^    int  val;$/;"	m	class:Node	typeref:typename:int
+~DisjointSet	kruskal.cc	/^DisjointSet::~DisjointSet() {$/;"	f	class:DisjointSet
